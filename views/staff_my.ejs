@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/stylesheets/login.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <header>
+
+        <div id="menu-bar" class="fas fa-bars"></div>
+
+        <a href="#" class="logo"> <span style="color: rgb(60, 226, 140); font-weight: bold;">B</span>AIRWAYS</a>
+
+        <nav class="navbar">
+            <a href="#home">home</a>
+            <a href="/book.html">book</a>
+            <a href="#packages">schedule</a>
+            <a href="#services">services</a>
+            <!-- <a href="#gallery">gallery</a> -->
+            <!-- <a href="#review">review</a> -->
+            <a href="#contact">contact</a>
+        </nav>
+
+
+        <!-- <form action="" class="search-bar-container">
+            <input type="search" id="search-bar" placeholder="search here...">
+            <label for="search-bar" class="fas fa-search"></label>
+        </form> -->
+
+    </header>
+
+
+
+    <div class="login-form-container active">
+        <div class="img-container">
+            <img src="images/EU.jpg" id="video-slider"></img>
+        </div>
+
+        <i class="fas fa-times" id="form-close"></i>
+
+        <form action="" method="post">       
+
+            <h3>My Detailsr</h3>
+            <label for="">Staff Id</label>
+            <input type="text" class="box" name="staff_id" placeholder="Staff Id" value="<%=userData.staff_id%>" readonly>
+            <label for="">First Name</label>
+            <input type="text" class="box" name="first_name" placeholder="First Name" value="<%=userData.first_name%>">
+            <label for="">Last Name</label>
+            <input type="text" class="box" name="last_name" placeholder="Last Name" value="<%=userData.last_name%>">
+            <label for="">Gender</label>
+            <input type="text" class="box" name="gender" placeholder="Gender" value="<%=userData.gender%>">
+            <label for="">Contact Number</label>
+            <input type="text" class="box" name="contact_number" placeholder="Contact Number" value="<%=userData.contact_number%>">
+            <label for="">Country</label>
+            <input type="text" class="box" name="country" placeholder="Country" value="<%=userData.country%>">
+            <label for="">Birthday</label>
+            <input type="text" class="box" name="birthday" placeholder="Birthday" value="<%=userData.birthday%>">
+            <label for="">Category</label>
+            <input type="text" class="box" name="category" placeholder="Category" value="<%=userData.category%>" readonly>
+            <label for="">Assigned Airport</label>
+            <input type="text" class="box" name="assigned_airport" placeholder="Assigned Airport" value="<%=userData.assigned_airport%>" readonly>
+            <label for="">State</label>
+            <input type="text" class="box" name="state" placeholder="State" value="<%=userData.state%>" readonly>            
+            <label for="">Email</label>
+            <input type="text" class="box" name="email" placeholder="Email" value="<%=userData.email%>" readonly>
+
+
+            <input type="submit" class="btn" value="Update">
+            <% if(msg)   %> <p><%-msg%></p>
+        </form>
+
+    </div>
+
+</body>
+
+</html>
