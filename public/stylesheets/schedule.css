@@ -1,0 +1,147 @@
+
+/* -------------------- */
+.input-group{
+  height: 100px;
+  position: relative;
+}
+.input-group input{
+  height: 50px;
+  font-size: large;
+  margin: 2px;
+}
+.input-group button{
+  margin: 2px;
+  height: 50px;
+  position:absolute;
+  /* top: -10px; */
+}
+
+table {
+  font-size: large;
+}
+table .btn{
+  margin-top: 0;
+  height: 35px;
+  width: 60px;
+  text-align: center;
+  font-size: 1.5rem;
+  padding: 0;
+}
+
+
+
+
+.book{
+    margin-top: 50px;
+  }
+  
+  .book .row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+   
+    /* align-items: center; */
+  }
+  
+  .book .row .left-col {
+    background-color: #ffffff;
+    color: rgb(25, 24, 24);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    font-family: "Lato", sans-serif;
+    margin: 0;
+  
+    flex: 1;
+    padding: 1rem;
+    box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.3);
+    border-radius: 0.5rem;
+    text-align: center;
+  }
+  
+  .book .row .left-right {
+    /* background-color: #e5faf7; */
+    flex: 1;
+    padding: 1rem;
+    box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.3);
+    border-radius: 0.5rem;
+  }
+  
+  .book .row .image img {
+    width: 100%;
+  }
+  
+  /* .book .row form {
+    flex: 1;
+    padding: 2rem;
+    box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.1);
+    border-radius: 0.5rem;
+  } */
+  
+  .book .row form .inputBox {
+    padding: 0.5rem 0;
+  }
+  
+  .book .row form .inputBox input {
+    width: 100%;
+    padding: 1rem;
+    border: 0.1rem solid rgba(0, 0, 0, 0.1);
+    font-size: 1.7rem;
+    color: #333;
+    text-transform: none;
+  }
+  
+  .book .row form .inputBox h3 {
+    font-size: 2rem;
+    padding: 1rem 0;
+    color: #666;
+  }
+  
+  /* --------------------------------- */
+  
+  @media (max-width: 1200px) {
+    html {
+      font-size: 55%;
+    }
+  }
+  
+  @media (max-width: 991px) {
+    header {
+      padding: 2rem;
+    }
+  
+    section {
+      padding: 2rem;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    html {
+      font-size: 50%;
+    }
+  
+    .heading span {
+      font-size: 2.5rem;
+    }
+  
+    /* .contact .row form .inputBox input {
+      width: 100%;
+    } */
+  
+    .book .row {
+      flex-direction: column;
+      /* align-items: center; */
+    }
+  
+    /* .book .row .left-col {
+      flex: 0;
+    }
+  
+    .book .row .left-right {
+      flex: 0;
+    } */
+  }
+  
+  

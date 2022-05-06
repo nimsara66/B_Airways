@@ -44,7 +44,7 @@ const registerCustomer = async (req, res, next) => {
 }
 
 const loginCustomer = (req, res, next) => {
-    res.status(StatusCodes.OK).render('login', { message: null })
+    res.status(StatusCodes.OK).render('login_register/login', { message: null })
 }
 
 const loginCustomerFailure = (req, res, next) => {

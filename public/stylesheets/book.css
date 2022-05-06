@@ -66,11 +66,15 @@ section {
 }
 
 /* -------------------- */
+.book{
+  margin-top: 50px;
+}
 
 .book .row {
   display: flex;
   flex-wrap: wrap;
   gap: 1.5rem;
+ 
   /* align-items: center; */
 }
 
@@ -130,7 +134,25 @@ section {
   color: #666;
 }
 
-@media (max-width: 650px) {
+/* --------------------------------- */
+
+@media (max-width: 1200px) {
+  html {
+    font-size: 55%;
+  }
+}
+
+@media (max-width: 991px) {
+  header {
+    padding: 2rem;
+  }
+
+  section {
+    padding: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
   html {
     font-size: 50%;
   }
@@ -156,3 +178,4 @@ section {
     flex: 0;
   } */
 }
+
