@@ -1,0 +1,42 @@
+<div class="Platinum-Seats">
+    <h2>Platinum Class Seats</h2>
+    <%
+    let id = 0;
+    for(let i=0;i<seatData.platinum_seats_num_rows;i++){%>
+        <div>
+        <%for(let j=0;j<seatData.platinum_seats_per_row;j++){
+            id+=1;
+            %>                
+            <button class="btn seat-id-button" id="Seat-<%=id%>"><%-id%></button>
+        <%}%>
+        </div>
+    <%}%>
+</div>
+
+<div class="Business-Seats">
+    <h2>Business Class Seats</h2>
+    <%
+    for(let i=0;i<seatData.business_seats_num_rows;i++){%>
+        <div>
+        <%for(let j=0;j<seatData.business_seats_per_row;j++){
+            id+=1;
+            %>                
+            <button class="btn seat-id-button" id="Seat-<%=id%>"><%-id%></button>
+        <%}%>
+        </div>
+    <%}%>
+</div>
+
+<div class="Economy-Seats">
+    <h2>Economy Class Seats</h2>
+    <%
+    for(let i=0;i<seatData.economy_seats_num_rows;i++){%>
+        <div>
+        <%for(let j=0;j<seatData.economy_seats_per_row;j++){
+            id+=1;
+            %>                
+            <button class="btn seat-id-button" id="Seat-<%=id%>"><%-id%></button>
+        <%}%>
+        </div>
+    <%}%>
+</div>

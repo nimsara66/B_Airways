@@ -43,7 +43,8 @@ app.use('/admin', adminRoutes);
 const scheduleRoutes = require('./routes/scheduleRoutes')
 app.use('/schedule', scheduleRoutes);
 
-
+const bookRoutes = require('./routes/bookRoutes')
+app.use('/book', bookRoutes);
 
 const notFoundMiddleware = require('./middleware/not-found')
 const errorHandlerMiddeware = require('./middleware/error-handler')

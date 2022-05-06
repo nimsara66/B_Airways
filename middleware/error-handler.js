@@ -7,7 +7,7 @@ const errorHandlerMiddeware = (err, req, res, next) => {
         message: err.message || 'Something went wrong, try again later'
     }
 
-    res.status(defaultError.statusCode).render('error', { message: defaultError.message })
+    res.status(defaultError.statusCode).render('component/error', { message: defaultError.message })
 }
 
 module.exports = errorHandlerMiddeware
