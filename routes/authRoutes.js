@@ -17,7 +17,7 @@ router.post('/register', registerCustomer)
 
 /* login */
 router.get('/login', loginCustomer)
-router.post('/login', passport.authenticate('local', {
+router.post('/login', passport.authenticate('customer', {
     failureRedirect: '/auth/login-failure',
     successRedirect: '/auth/login-success'
 }))
@@ -27,7 +27,10 @@ router.get('/login-success', (req, res, next) => {
     res.json({ data: req.user, msg: 'login successfully' })
 })
 
-router.get('/login-failure', loginCustomerFailure)
+// router.get('/login-failure', loginCustomerFailure)
+router.get('/login-failure', (req, res, next) => {
+    res.json({ data: req.user, msg: 'login failure' })
+})
 
 /* logout */
 router.get('/logout', (req, res, next) => {

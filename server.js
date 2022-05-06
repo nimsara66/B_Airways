@@ -28,11 +28,14 @@ require('./config/passport-config')
 app.use(passport.initialize({}))
 app.use(passport.session({}))
 
-const homeRoute = require('./routes/homeRoute')
-app.use('/', homeRoute);
+const homeRoutes = require('./routes/homeRoutes')
+app.use('/', homeRoutes);
 
-const authRoute = require('./routes/authRoute')
-app.use('/auth', authRoute);
+const authRoutes = require('./routes/authRoutes')
+app.use('/auth', authRoutes);
+
+const adminRoutes = require('./routes/adminRoutes')
+app.use('/admin', adminRoutes);
 
 const notFoundMiddleware = require('./middleware/not-found')
 const errorHandlerMiddeware = require('./middleware/error-handler')

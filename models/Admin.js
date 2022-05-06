@@ -1,7 +1,7 @@
 const db = require('../db/connect')
 const bcrypt = require('bcryptjs')
 
-class Customer {
+class Admin {
     constructor(email, password) {
         this.email=email
         this.password=password
@@ -17,10 +17,10 @@ class Customer {
         )
     }
 
-    static findById(customerId) {
+    static findById(adminId) {
         return db.query(
-            'SELECT * FROM Admin WHERE customer_id = ? LIMIT 1',
-            [customerId]
+            'SELECT * FROM Admin WHERE admin_id = ? LIMIT 1',
+            [adminId]
         )
     }
 
@@ -32,4 +32,4 @@ class Customer {
     }
 }
 
-module.exports = Customer
+module.exports = Admin
