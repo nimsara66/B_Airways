@@ -1,18 +1,18 @@
 const express = require('express')
 const passport = require('passport')
 const router = express.Router()
-const adminAuth = require('../middleware/adminAuth')
+const staffAuth = require('../middleware/staffAuth')
 
 const { 
-    registerAdmin
-} = require('../controllers/adminController')
+    registerStaff
+} = require('../controllers/staffController')
 
-router.post('/register', registerAdmin)
+router.post('/register', registerStaff)
 
 /* login */
-router.post('/login', passport.authenticate('admin', {
-    failureRedirect: '/admin/login-failure',
-    successRedirect: '/admin/login-success'
+router.post('/login', passport.authenticate('staff', {
+    failureRedirect: '/staff/login-failure',
+    successRedirect: '/staff/login-success'
 }))
 
 // TODO
@@ -30,9 +30,9 @@ router.get('/logout', (req, res, next) => {
     res.redirect('/')
 })
 
-/* admin protected */
-router.get('/protected', adminAuth, (req, res, next) => {
-    res.json({ data: 'entered admin protected' })
+/* staff protected */
+router.get('/protected', staffAuth, (req, res, next) => {
+    res.json({ data: 'entered staff protected' })
 })
 
 module.exports = router

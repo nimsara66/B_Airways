@@ -34,6 +34,9 @@ app.use('/', homeRoutes);
 const authRoutes = require('./routes/authRoutes')
 app.use('/auth', authRoutes);
 
+const staffRoutes = require('./routes/staffRoutes')
+app.use('/staff', staffRoutes);
+
 const adminRoutes = require('./routes/adminRoutes')
 app.use('/admin', adminRoutes);
 
