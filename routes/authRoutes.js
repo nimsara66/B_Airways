@@ -11,12 +11,12 @@ const {
 router.get('/register', function(req, res, next) {
     let msg = req.session.msg
     delete req.session.msg
-    res.render('regCustomer_register', {title:'Register', msg:msg})
+    res.render('login_register/regCustomer_register', {title:'Register', msg:msg})
 })
 router.post('/register', registerCustomer)
 
 /* login */
-router.get('/login', loginCustomer)
+router.get('/login', loginCustomer);
 router.post('/login', passport.authenticate('customer', {
     failureRedirect: '/auth/login-failure',
     successRedirect: '/auth/login-success'
