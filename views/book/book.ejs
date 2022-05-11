@@ -44,27 +44,27 @@
                 <form action="" id="book-form" method="post">
                     <div class="inputBox">
                         <h3>Origin</h3>
-                        <input type="text" placeholder="place name">
+                        <input type="text" placeholder="place name" readonly value="<%=route.origin%>">
                     </div>
                     <div class="inputBox">
                         <h3>Destination</h3>
-                        <input type="text" placeholder="place name">
+                        <input type="text" placeholder="place name" readonly value="<%=route.destination%>">
                     </div>
                     <div class="inputBox">
                         <h3>how many</h3>
-                        <input type="number" id="num-booked-seats" name="num_seats" class="book-input" value='0' readonly >
+                        <input type="number" id="num-booked-seats" name="num_seats" class="book-input" value="<%=seatData.available_num%>" readonly >
                     </div>
                     <div class="inputBox">
                         <h3>arrivals</h3>
-                        <input type="date">
+                        <input type="date" value="<%=flightSchedule.arrival_date%>" readonly >
                     </div>
                     <div class="inputBox">
                         <h3>leaving</h3>
-                        <input type="date">
+                        <input type="date" value="<%=flightSchedule.departure_date%>" readonly >
                     </div>
                     <div hidden>
-                        <input type="text" name="schedule_id" class="form-control book-input" value="<%=schedule_id%>" readonly>
-                        <input type="text" name="aircraft_id" class="form-control book-input" value="<%=aircraft_id%>" readonly>
+                        <input type="text" name="schedule_id" class="form-control book-input" value="<%=flightSchedule.schedule_id%>" readonly>
+                        <input type="text" name="aircraft_id" class="form-control book-input" value="<%=flightSchedule.aircraft_id%>" readonly>
                         <input type="text" id="selected-seats" name="selected_seats" class="form-control book-input" value="[]" readonly >
                     </div>
                     <button type="submit" class="btn" id="book-now-btn">Book Now</button>
