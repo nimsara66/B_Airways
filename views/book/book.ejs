@@ -51,16 +51,16 @@
                         <input type="text" placeholder="place name" readonly value="<%=route.destination%>">
                     </div>
                     <div class="inputBox">
-                        <h3>how many</h3>
-                        <input type="number" id="num-booked-seats" name="num_seats" class="book-input" value="<%=seatData.available_num%>" readonly >
+                        <h3>how many booked by yu</h3>
+                        <input type="text" id="num-booked-seats" name="num_seats" class="book-input" value="0" readonly >
                     </div>
                     <div class="inputBox">
                         <h3>arrivals</h3>
-                        <input type="date" value="<%=flightSchedule.arrival_date%>" readonly >
+                        <input type="text" value="<%=flightSchedule.arrival_date%>" readonly >
                     </div>
                     <div class="inputBox">
                         <h3>leaving</h3>
-                        <input type="date" value="<%=flightSchedule.departure_date%>" readonly >
+                        <input type="text" value="<%=flightSchedule.departure_date%>" readonly >
                     </div>
                     <div hidden>
                         <input type="text" name="schedule_id" class="form-control book-input" value="<%=flightSchedule.schedule_id%>" readonly>

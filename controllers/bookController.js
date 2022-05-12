@@ -1,9 +1,10 @@
 /*   Models   */
-const SeatBooking = require('../models/SeatBooking')
 const FlightSchedule = require("../models/FlightSchedule")
 const AircraftModel = require("../models/AircraftModel")
 const Aircraft = require("../models/Aircraft")
 const Route = require("../models/Route")
+const AircraftSeat = require("../models/AircraftSeat")
+const SeatBooking = require("../models/SeatBooking")
 
 
 /*
@@ -12,40 +13,41 @@ const Route = require("../models/Route")
 const viewBook = async (req,res,next)=>{
     let schedule_id = req.params.schedule_id;
     let customer_id = 15;      //get from req.user
-    let flightSchedule , aircraft , aircraftModel, unavailableSeats, route ;
+    let flightSchedule , aircraft , model_id, unavailableSeats, route ;
     try{
-        flightSchedule = new FlightSchedule(schedule_id);
-        await flightSchedule.init();
-        route = new Route(flightSchedule.route_id)
-        await route.init()
-        aircraft = new Aircraft(flightSchedule.aircraft_id)
-        await aircraft.init();
-        aircraftModel = new AircraftModel(aircraft.aircraft_id);
-        await aircraftModel.init();
-        seatData = aircraftModel.seatData
-        aircraft_id = flightSchedule.aircraft_id
-        unavailableSeats = await aircraft.getUnavailableAndOccupiedSeats()
-        console.log(seatData)
+        flightSchedule = await FlightSchedule.getScheduleDataUsingScheduleId(schedule_id);
+        route = await Route.getRouteUsingRouteId(flightSchedule.route_id)
+        model_id = await Aircraft.getAircraftModelIdUsingAircraftId(flightSchedule.aircraft_id)
+        seatData = await AircraftModel.getSeatDataUsingModelId(model_id)
+        unavailableSeats = await Aircraft.getUnavailableAndOccupiedSeatsForAircraft(flightSchedule.aircraft_id)
         seatData.available_num = seatData.total_num - unavailableSeats.length
-        res.render('book/book', {flightSchedule, route, customer_id, seatData, unavailableSeats});
+        res.render('book/book', {customer_id, flightSchedule, route, seatData, unavailableSeats});
     }catch(err){
-        return res.json({msg:err.message})
+        return res.json(err)
     }
 }
 
 
-const bookTickets = (req,res,next)=>{
+/*
+    handles POST book request.
+    Booking is made if that requested seat is already not booked.
+*/
+const bookTickets = async (req,res,next)=>{
     let schedule_id = req.body.schedule_id;
-    let customer_id = 15;      //get from req.user
-    let aircraft_id = 10;    //get from database
-    let selected_seats = JSON.parse(req.body.selected_seats)
-    res.json({
-        schedule_id,
-        customer_id,
-        aircraft_id,
-        selected_seats
-    })
-    //res.redirect(`/book/${schedule_id}`)
+    let customer_id = 1;      //get from req.user
+    let selected_seats = JSON.parse(req.body.selected_seats)    
+    try{
+        let i = 0;
+        selected_seats.forEach(async (seat_id) => {
+            let booking_id = await SeatBooking.findBookingIdfromScheduleIdAndSeatId(schedule_id, seat_id)
+            let seatbooking = new SeatBooking(booking_id)
+            await seatbooking.book(customer_id) 
+            i+=1;
+            if(i===selected_seats.length)       return res.redirect(`/book/${schedule_id}`)
+        });       
+    }catch(err){
+        return res.json({msg:err.message})
+    }    
 }
 
 
