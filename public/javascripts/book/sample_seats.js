@@ -50,3 +50,12 @@ unavailableSeats.forEach(seatId => {
     btn.style.backgroundColor = "red"
     btn.disabled = true
 });
+
+let alreadyBookedSeats = JSON.parse(document.getElementById("already-booked-seats").value)
+numBookedSeatsElement.value = alreadyBookedSeats.length
+alreadyBookedSeats.forEach(seatId => {
+   // console.log(alreadyBookedSeats)
+    const btn = document.getElementById(`Seat-${seatId}`)
+    btn.style.backgroundColor = "blue"
+    btn.disabled = true
+});

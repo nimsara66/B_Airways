@@ -13,8 +13,8 @@ const { session } = require("passport/lib")
 */
 const viewBook = async (req,res,next)=>{
     let schedule_id = req.params.schedule_id;
-    let customer_id = '1';      //get from req.user  TODO
-    let flightSchedule , model_id, unavailableSeats, route ;
+    let customer_id = '11';      //get from req.user  TODO
+    let flightSchedule , model_id, unavailableSeats, route, bookedSeatsByThisCustomer ;
     let msg = ""
     try{
         flightSchedule = await FlightSchedule.getScheduleDataUsingScheduleId(schedule_id);
@@ -22,8 +22,8 @@ const viewBook = async (req,res,next)=>{
         model_id = await Aircraft.getAircraftModelIdUsingAircraftId(flightSchedule.aircraft_id)
         seatData = await AircraftModel.getSeatDataUsingModelId(model_id)
         unavailableSeats = await Aircraft.getUnavailableAndOccupiedSeatsForAircraft(flightSchedule.aircraft_id)
+        bookedSeatsByThisCustomer = await SeatBooking.findSeatIdsForCustomerIdAndScheduleId(customer_id, schedule_id)
         seatData.available_num = seatData.total_num - unavailableSeats.length
-        
         if(req.session.ableToBookSeats && req.session.ableToBookSeats[customer_id] && req.session.ableToBookSeats[customer_id].length){
             msg = msg + "Seat numbers "
             let i =0;
@@ -52,8 +52,7 @@ const viewBook = async (req,res,next)=>{
             msg = msg + "were aready booked. Please try to book diffrent seats.\n"
             delete req.session.unableToBookSeats.customer_id
         }
-        console.log(msg)
-        res.render('book/book', {flightSchedule, route, seatData, unavailableSeats, msg});
+        res.render('book/book', {flightSchedule, route, seatData, unavailableSeats, msg, bookedSeatsByThisCustomer});
     }catch(err){
         return res.json(err)
     }
@@ -66,7 +65,7 @@ const viewBook = async (req,res,next)=>{
 */
 const bookTickets = async (req,res,next)=>{
     let schedule_id = req.body.schedule_id;
-    let customer_id = 1;      //get from req.user
+    let customer_id = '11';      //get from req.user
     let selected_seats = JSON.parse(req.body.selected_seats)    
     try{
         let i = 0;

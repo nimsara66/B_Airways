@@ -42,6 +42,23 @@ class SeatBooking{
     }
     
 
+    static findSeatIdsForCustomerIdAndScheduleId(customer_id, schedule_id){
+        return new Promise(async (resolve, reject)=>{
+            try{
+                let [rows, cols] = await db.query(
+                    'SELECT seat_id from Seat_Booking where schedule_id=? and customer_id=?',
+                    [schedule_id, customer_id]
+                )
+                let bookedSeats = []
+                rows.forEach(row => {
+                    bookedSeats.push(row.seat_id)
+                });
+                console.log(bookedSeats)
+                resolve(bookedSeats)
+            } catch(e){return reject(e)}
+        })          
+    }
+
 
 
 }
