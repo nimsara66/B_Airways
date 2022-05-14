@@ -78,10 +78,11 @@ INSERT INTO Flight_Schedule VALUES
 (3,1,3,'2022-05-11', '09:00:00', '2022-05-12', '10:00:00', 'active');
 
 INSERT INTO Discount VALUES
-('registered-customer', 5);
+('registered_customer', 5),
+('guest_customer', 0);
 
 INSERT INTO Customer VALUES
-(1, 'registered-customer');
+(1, 'registered_customer');
 
 INSERT INTO Seat_Booking VALUES
 (1,null,1,1,1,'available',null),

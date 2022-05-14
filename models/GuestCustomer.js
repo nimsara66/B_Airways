@@ -26,7 +26,7 @@ class GuestCustomer{
     }
 
     async create() {
-        const customer = new Customer('guest-customer')
+        const customer = new Customer('guest_customer')
         const [ result, _ ] = await customer.create()
         this.customer_id = result.insertId
         return db.query(
