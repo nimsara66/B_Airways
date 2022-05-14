@@ -2,7 +2,10 @@ const express = require('express')
 const router = express.Router()
 const passport = require('passport')
 const auth = require('../middleware/auth')
-const { registerGuest } = require('../controllers/homeController')
+const { 
+    registerGuest,
+    logout 
+} = require('../controllers/homeController')
 
 router.get('/', function (req, res, next) {
     res.render('index', { title: 'Express' });
@@ -22,6 +25,9 @@ router.get('/login-success', (req, res, next) => {
 router.get('/login-failure', (req, res, next) => {
     res.json({ data: req.user, msg: 'login failure' })
 })
+
+/* logout */
+router.get('/logout', logout)
 
 router.get('/protected', auth, function (req, res, next) {
     res.json({ data: 'entered customer protected' })

@@ -1,25 +1,33 @@
 const RegisteredCustomer = require('../models/RegisteredCustomer')
+const RegisteredCustomerSchema = require('../validation/RegisteredCustomer')
+const { BadRequestError } = require('../errors/index')
 const { StatusCodes } = require('http-status-codes')
 
 const registerCustomer = async (req, res, next) => {
-    const {
-        email,
-        password,
-        confirm_password,
-        first_name,
-        last_name,
-        gender,
-        contact_number,
-        passport_number,
-        address_line1,
-        address_line2,
-        country,
-        province,
-        city,
-        birthday
-    } = req.body
     try {
+        // validate
+        const {
+            email,
+            password,
+            first_name,
+            last_name,
+            gender,
+            contact_number,
+            passport_number,
+            address_line1,
+            address_line2,
+            country,
+            province,
+            city,
+            birthday
+        } = await RegisteredCustomerSchema.validateAsync(req.body)
+
         // check if user exist
+        const [ customers, _ ] = await RegisteredCustomer.findByEmail(email)
+        if (customers.length>0) {
+            throw new BadRequestError('Customer already exists')
+        }
+
         const registeredCustomer = new RegisteredCustomer(
             email,
             password,
@@ -35,11 +43,14 @@ const registerCustomer = async (req, res, next) => {
             city,
             birthday
         )
-        // validate
         await registeredCustomer.create()
+        // TODO
         res.send({ msg: 'success' })
     } catch (error) {
-        res.send({ msg: error.message })
+        if (error.isJoi) {
+            error = new BadRequestError('please provide valid values')
+        }
+        next(error)
     }
 }
 
@@ -51,8 +62,14 @@ const loginCustomerFailure = (req, res, next) => {
     res.status(401).render('login', { message: 'Invalid Credentials' })
 }
 
+const logoutCustomer = (req, res, next) => {
+    req.logout();
+    res.redirect('/');
+}
+
 module.exports = {
     registerCustomer,
     loginCustomer,
-    loginCustomerFailure
+    loginCustomerFailure,
+    logoutCustomer
 }
