@@ -1,5 +1,5 @@
 const GuestCustomer = require('../models/GuestCustomer')
-const { StatusCodes } = require('http-status-codes')
+const { BadRequestError } = require('../errors/bad-request')
 
 const registerGuest = async (req, res, next) => {
     const {
@@ -26,10 +26,19 @@ const registerGuest = async (req, res, next) => {
             birthday
         )
         // validate
-        await guestCustomer.create()
-        res.send({ msg: 'success' })
+        const [ result, _ ] = await guestCustomer.create()
+        console.log(result)
+        if (result.affectedRows) {
+            req.body = {
+                email: email,
+                password: "password" // passport require this to be non empty
+            }
+            next()
+        } else {
+            throw new BadRequestError('Invalid Inputs')
+        }
     } catch (error) {
-        res.send({ msg: error.message })
+        next(error)
     }
 }
 
