@@ -23,6 +23,11 @@ router.get('/login-failure', (req, res, next) => {
     res.json({ data: req.user, msg: 'login failure' })
 })
 
+router.get('/logout', (req, res, next) => {
+    req.logout();
+    res.redirect('/');
+})
+
 router.get('/protected', auth, function (req, res, next) {
     res.json({ data: 'entered customer protected' })
 })

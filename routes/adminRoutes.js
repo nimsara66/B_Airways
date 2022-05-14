@@ -4,7 +4,8 @@ const router = express.Router()
 const adminAuth = require('../middleware/adminAuth')
 
 const { 
-    registerAdmin
+    registerAdmin,
+    logoutAdmin
 } = require('../controllers/adminController')
 
 router.post('/register', registerAdmin)
@@ -25,10 +26,7 @@ router.get('/login-failure', (req, res, next) => {
 })
 
 /* logout */
-router.get('/logout', (req, res, next) => {
-    req.logout();
-    res.redirect('/')
-})
+router.get('/logout', logoutAdmin)
 
 /* admin protected */
 router.get('/protected', adminAuth, (req, res, next) => {
