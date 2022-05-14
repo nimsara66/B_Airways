@@ -1,5 +1,6 @@
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
+const GuestCustomer = require('../models/GuestCustomer')
 const RegisteredCustomer = require('../models/RegisteredCustomer')
 const Admin = require('../models/Admin')
 const Staff = require('../models/Staff')
@@ -15,11 +16,25 @@ const customFields = {
 	passwordField: 'password'
 }
 
+const verifyCallbackGuest = async (username, password, done) => {
+	try {
+		let [user, _] = await GuestCustomer.findByEmail(username)
+		if (user.length === 0) return done(null, false)
+		user = user[0]
+		user.user_type = 'guest_customer'
+
+		return done(null, user)
+	} catch (error) {
+		return done(error)
+	}
+}
+
 const verifyCallbackCustomer = async (username, password, done) => {
 	try {
 		let [user, _] = await RegisteredCustomer.findByEmail(username)
 		if (user.length === 0) return done(null, false)
 		user = user[0]
+		user.user_type = 'registered_customer'
 
 		const isMatch = await bcrypt.compare(password, user.password)
 		if (!isMatch) return done(null, false)
@@ -57,12 +72,15 @@ const verifyCallbackAdmin = async (username, password, done) => {
 	}
 }
 
+passport.use('guest', new LocalStrategy(customFields, verifyCallbackGuest))
 passport.use('customer', new LocalStrategy(customFields, verifyCallbackCustomer))
 passport.use('staff', new LocalStrategy(customFields, verifyCallbackStaff))
 passport.use('admin', new LocalStrategy(customFields, verifyCallbackAdmin))
 
 passport.serializeUser(function (user, done) {
-	if (user.customer_id !== undefined) {
+	if (user.customer_id !== undefined && user.user_type === 'guest_customer') {
+		return done(null, new SessionConstructor(user.customer_id, 'guest_customer'))
+	} else if (user.customer_id !== undefined && user.user_type === 'registered_customer') {
 		return done(null, new SessionConstructor(user.customer_id, 'registered_customer'))
 	} else if (user.staff_id !== undefined) {
 		return done(null, new SessionConstructor(user.staff_id, 'staff'))
@@ -74,7 +92,12 @@ passport.serializeUser(function (user, done) {
 
 passport.deserializeUser(async (sessionConstructor, done) => {
 	try {
-		if (sessionConstructor.userGroup == 'registered_customer') {
+		if (sessionConstructor.userGroup == 'guest_customer') {
+			let [customer, _] = await GuestCustomer.findById(sessionConstructor.userId)
+			customer = customer[0]
+			customer.user_type = sessionConstructor.userGroup
+			return done(null, customer)
+		} else if (sessionConstructor.userGroup == 'registered_customer') {
 			let [customer, _] = await RegisteredCustomer.findById(sessionConstructor.userId)
 			customer = customer[0]
 			delete customer['password']

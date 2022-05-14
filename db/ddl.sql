@@ -93,7 +93,7 @@ create table Customer(
 
 create table Seat_Booking(
     booking_id          int(10) auto_increment primary key,
-    customer_id         int(10) not null,
+    customer_id         int(10),
     schedule_id         int(10) not null,
     seat_id             varchar(10) not null,
     aircraft_id         varchar(10) not null,
