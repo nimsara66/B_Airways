@@ -1,6 +1,9 @@
 const { StatusCodes } = require('http-status-codes')
 
 const errorHandlerMiddeware = (err, req, res, next) => {
+    // remove the session
+    // req.logout()
+    // TODO: remove in production
     console.log(err)
     const defaultError = {
         statusCode: err.statusCode || StatusCodes.INTERNAL_SERVER_ERROR,
