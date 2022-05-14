@@ -3,7 +3,8 @@ const router = express.Router()
 
 
 router.get('/', function (req, res, next) {
-    res.render('schedule', { title: 'Express' });
+    let user=false;
+    res.render('schedule' , { title: 'Express' ,user:user});
 })
 
 module.exports = router;

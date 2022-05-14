@@ -68,12 +68,14 @@
                         <input type="text" id="selected-seats" name="selected_seats" class="form-control book-input" value="[]" readonly >
                     </div>
                     <button type="submit" class="btn" id="book-now-btn">Book Now</button>
+                    <button type="submit" class="btn"  style="background-color: rgb(247, 16, 16); margin-left: 50%;" id="exit-btn">Exit</button>
+                    
                     
 
                 </form>
-                <div>
+                <!-- <div>
                     <p><%-msg;%></p>
-                </div>
+                </div> -->
                 
                 <input type="text" hidden id="unavailable-seats" value="<%=JSON.stringify(unavailableSeats)%>">
                 <input type="text" hidden id="already-booked-seats" value="<%=JSON.stringify(bookedSeatsByThisCustomer)%>">
@@ -82,8 +84,8 @@
 
             <div class="left-col">
                 <!-- <img src="images/book-img.svg" alt=""> -->
-                <h1>This part contains available sheets details and passport deatails</h1>
-                <%- include('\sample_seats.ejs'); %>
+                <!-- <h1>This part contains available sheets details and passport deatails</h1> -->
+                <%- include('\sample_seats.ejs',{msg}); %>
             </div>
 
 
