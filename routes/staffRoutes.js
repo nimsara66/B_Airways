@@ -4,7 +4,8 @@ const router = express.Router()
 const staffAuth = require('../middleware/staffAuth')
 
 const { 
-    registerStaff
+    registerStaff,
+    logoutStaff
 } = require('../controllers/staffController')
 
 router.post('/register', registerStaff)
@@ -25,10 +26,7 @@ router.get('/login-failure', (req, res, next) => {
 })
 
 /* logout */
-router.get('/logout', (req, res, next) => {
-    req.logout();
-    res.redirect('/')
-})
+router.get('/logout', logoutStaff)
 
 /* staff protected */
 router.get('/protected', staffAuth, (req, res, next) => {

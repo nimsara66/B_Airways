@@ -4,7 +4,8 @@ const router = express.Router()
 const { 
     registerCustomer,
     loginCustomer,
-    loginCustomerFailure
+    loginCustomerFailure,
+    logoutCustomer
 } = require('../controllers/authController')
 
 /* register */
@@ -33,9 +34,6 @@ router.get('/login-failure', (req, res, next) => {
 })
 
 /* logout */
-router.get('/logout', (req, res, next) => {
-    req.logout();
-    res.redirect('/');
-})
+router.get('/logout', logoutCustomer)
 
 module.exports = router

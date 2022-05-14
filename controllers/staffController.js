@@ -49,6 +49,12 @@ const registerStaff = async (req, res, next) => {
     }
 }
 
+const logoutStaff = (req, res, next) => {
+    req.logout();
+    res.redirect('/')
+}
+
 module.exports = {
-    registerStaff
+    registerStaff,
+    logoutStaff
 }

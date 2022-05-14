@@ -62,8 +62,14 @@ const loginCustomerFailure = (req, res, next) => {
     res.status(401).render('login', { message: 'Invalid Credentials' })
 }
 
+const logoutCustomer = (req, res, next) => {
+    req.logout();
+    res.redirect('/');
+}
+
 module.exports = {
     registerCustomer,
     loginCustomer,
-    loginCustomerFailure
+    loginCustomerFailure,
+    logoutCustomer
 }

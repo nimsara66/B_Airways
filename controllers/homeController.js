@@ -43,6 +43,12 @@ const registerGuest = async (req, res, next) => {
     }
 }
 
+const logout = (req, res, next) => {
+    req.logout();
+    res.redirect('/');
+}
+
 module.exports = { 
-    registerGuest
+    registerGuest,
+    logout
 }
