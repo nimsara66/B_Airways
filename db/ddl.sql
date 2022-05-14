@@ -126,7 +126,7 @@ create table Registered_Customer (
     joined_at       timestamp(6),
     primary key     (customer_id),
     foreign key     (customer_id)
-        references customer(customer_id)
+        references Customer(customer_id)
 );
 
 
@@ -143,7 +143,7 @@ create table Guest_Customer (
     birthday        varchar(15),
     primary key     (customer_id),
     foreign key     (customer_id)
-        references customer(customer_id)
+        references Customer(customer_id)
 );
 
 

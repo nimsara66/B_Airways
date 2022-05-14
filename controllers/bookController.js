@@ -12,8 +12,9 @@ const { session } = require("passport/lib")
     Renders booking interface for releavant schedule id.
 */
 const viewBook = async (req,res,next)=>{
+    let user=false;
     let schedule_id = req.params.schedule_id;
-    let customer_id = '11';      //get from req.user  TODO
+    let customer_id = '1';      //get from req.user  TODO
     let flightSchedule , model_id, unavailableSeats, route, bookedSeatsByThisCustomer ;
     let msg = ""
     try{
@@ -52,7 +53,7 @@ const viewBook = async (req,res,next)=>{
             msg = msg + "were aready booked. Please try to book diffrent seats.\n"
             delete req.session.unableToBookSeats.customer_id
         }
-        res.render('book/book', {flightSchedule, route, seatData, unavailableSeats, msg, bookedSeatsByThisCustomer});
+        res.render('book/book', {flightSchedule, route, seatData, unavailableSeats, msg, bookedSeatsByThisCustomer,user:user});
     }catch(err){
         return res.json(err)
     }
@@ -65,7 +66,7 @@ const viewBook = async (req,res,next)=>{
 */
 const bookTickets = async (req,res,next)=>{
     let schedule_id = req.body.schedule_id;
-    let customer_id = '11';      //get from req.user
+    let customer_id = '1';      //get from req.user
     let selected_seats = JSON.parse(req.body.selected_seats)    
     try{
         let i = 0;

@@ -11,17 +11,22 @@
 
     <nav class="navbar">
         <a href="/">home</a>
-        <a href="/book">book</a>
+        <!-- <a href="/book">book</a> -->
         <a href="/schedule">schedule</a>
         <a href="#services">services</a>
 
         <a href="#contact">contact</a>
     </nav>
 
+
     <div class="icons">
-        <!-- <i class="fas fa-search" id="search-btn"></i> -->
-        <!-- <i class="fas fa-user" id="login-btn"><a href="/login"></a></i> -->
-        <a href="/auth/login"><i class="fas fa-user" id="login-btn"></i></a>
+      
+        <% if(user) {%>
+           <a href=""><i class="fas fa-sign-out-alt" style="color: rgb(233, 111, 111);"></i></a>
+        <% }else{ %> 
+            <a href="/auth/login"><i class="fas fa-user" id="login-btn"></i></a>
+        <% } %> 
+        
     </div>
 
 

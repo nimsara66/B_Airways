@@ -10,8 +10,9 @@ const {
 /* register */
 router.get('/register', function(req, res, next) {
     let msg = req.session.msg
+    let user=false;
     delete req.session.msg
-    res.render('login_register/regCustomer_register', {title:'Register', msg:msg})
+    res.render('login_register/regCustomer_register', {title:'Register', msg:msg, user:user})
 })
 router.post('/register', registerCustomer)
 

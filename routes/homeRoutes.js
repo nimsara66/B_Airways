@@ -5,7 +5,8 @@ const auth = require('../middleware/auth')
 const { registerGuest } = require('../controllers/homeController')
 
 router.get('/', function (req, res, next) {
-    res.render('index', { title: 'Express' });
+    let user=false;
+    res.render('index', { title: 'Express', user:user });
 })
 
 /* guest signup */
