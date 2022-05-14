@@ -1,5 +1,5 @@
 const GuestCustomer = require('../models/GuestCustomer')
-const { BadRequestError } = require('../errors/bad-request')
+// const { BadRequestError } = require('../errors/bad-request')
 
 const registerGuest = async (req, res, next) => {
     const {
@@ -35,7 +35,7 @@ const registerGuest = async (req, res, next) => {
             }
             next()
         } else {
-            throw new BadRequestError('Invalid Inputs')
+            // throw new BadRequestError('Invalid Inputs')
         }
     } catch (error) {
         next(error)
