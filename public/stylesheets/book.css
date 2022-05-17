@@ -134,6 +134,11 @@ section {
   color: #666;
 }
 
+.title{
+  font-size:medium;
+  margin: 10px;
+}
+
 /* --------------------------------- */
 
 @media (max-width: 1200px) {

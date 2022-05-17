@@ -6,6 +6,7 @@ const { registerGuest } = require('../controllers/homeController')
 
 router.get('/', function (req, res, next) {
     let user=false;
+    console.log(req.user);
     res.render('index', { title: 'Express', user:user });
 })
 
