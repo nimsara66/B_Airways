@@ -84,6 +84,7 @@ INSERT INTO Discount VALUES
 INSERT INTO Customer VALUES
 (1, 'registered_customer');
 
+
 INSERT INTO Seat_Booking VALUES
 (1,null,1,1,1,'available',null),
 (2,null,1,2,1,'available',null),
