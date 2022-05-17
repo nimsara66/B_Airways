@@ -36,7 +36,7 @@ class RegisteredCustomer{
     }
 
     async create() {
-        const customer = new Customer('registered-customer')
+        const customer = new Customer('registered_customer')
         const [ result, _ ] = await customer.create()
         this.customer_id = result.insertId
         // hash password
