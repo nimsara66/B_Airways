@@ -15,7 +15,6 @@ class SeatBooking{
                     'UPDATE Seat_Booking SET customer_id=?, booking_date=?, state=? WHERE booking_id=? and state=?',
                     [customer_id, new Date().toISOString(), "occupied", this.booking_id, "available"]
                 )
-                console.log(rows.affectedRows)
                 if(rows.affectedRows){
                     resolve(true)
                 }else{
@@ -53,7 +52,6 @@ class SeatBooking{
                 rows.forEach(row => {
                     bookedSeats.push(row.seat_id)
                 });
-                console.log(bookedSeats)
                 resolve(bookedSeats)
             } catch(e){return reject(e)}
         })          
