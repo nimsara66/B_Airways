@@ -4,7 +4,8 @@ const passport = require('passport')
 const auth = require('../middleware/auth')
 const { 
     registerGuest,
-    logout 
+    logout ,
+    loginSuccess
 } = require('../controllers/homeController')
 
 router.get('/', function (req, res, next) {
@@ -20,9 +21,7 @@ router.post('/register', registerGuest, passport.authenticate('guest', {
 }))
 
 // TODO
-router.get('/login-success', (req, res, next) => {
-    res.json({ data: req.user, msg: 'login successfully' })
-})
+router.get('/login-success', loginSuccess);
 
 router.get('/login-failure', (req, res, next) => {
     res.json({ data: req.user, msg: 'login failure' })
