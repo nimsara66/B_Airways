@@ -6,7 +6,7 @@ const Route = require("../models/Route")
 const AircraftSeat = require("../models/AircraftSeat")
 const SeatBooking = require("../models/SeatBooking")
 const { session } = require("passport/lib")
-
+const messageHelper = require("../helpers/messageHelper")
 
 /*
     GET Renders booking interface for releavant schedule id.
@@ -30,33 +30,13 @@ const viewBook = async (req,res,next)=>{
         if(req.user && req.user.customer_id){
             let customer_id = user.customer_id;  
             bookedSeatsByThisCustomer = await SeatBooking.findSeatIdsForCustomerIdAndScheduleId(customer_id, schedule_id)
-            if(req.session.ableToBookSeats && req.session.ableToBookSeats[customer_id] && req.session.ableToBookSeats[customer_id].length){
-                msg = msg + "Seat numbers "
-                let i =0;
-                req.session.ableToBookSeats[customer_id].forEach(seat_id => {
-                    i+=1;
-                    msg = msg + seat_id
-                    if(i!=req.session.ableToBookSeats[customer_id].length){
-                        msg = msg + ","
-                    }
-                    msg = msg + " ";
-                });
-                msg = msg + "were succesfully booked.\n"
-                delete req.session.ableToBookSeats.customer_id
+            if(req.session.ableToBookSeats && req.session.ableToBookSeats[customer_id]){
+                msg = msg + messageHelper.createAbleSeatBookMessage(req.session.ableToBookSeats[customer_id])
+                delete req.session.ableToBookSeats[customer_id]
             }
-            if(req.session.unableToBookSeats && req.session.unableToBookSeats[customer_id] && req.session.unableToBookSeats[customer_id].length){
-                msg = msg + "Seat numbers "
-                let i =0;
-                req.session.unableToBookSeats[customer_id].forEach(seat_id => {
-                    i+=1;
-                    msg = msg + seat_id
-                    if(i!==req.session.unableToBookSeats[customer_id].length){
-                       msg = msg + ","
-                    }
-                    msg = msg + " ";
-                });
-                msg = msg + "were aready booked. Please try to book diffrent seats.\n"
-                delete req.session.unableToBookSeats.customer_id
+            if(req.session.unableToBookSeats && req.session.unableToBookSeats[customer_id]){
+                msg = msg + messageHelper.createUnableSeatBookMessage(req.session.unableToBookSeats[customer_id])
+                delete req.session.unableToBookSeats[customer_id]
             }
         }
         res.render('book/book', {flightSchedule, route, seatData, unavailableSeats, msg, bookedSeatsByThisCustomer,user});
