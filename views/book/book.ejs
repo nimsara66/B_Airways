@@ -127,17 +127,20 @@
                         <input type="text" name="aircraft_id" class="form-control book-input" value="<%=flightSchedule.aircraft_id%>" readonly>
                         <input type="text" id="selected-seats" name="selected_seats" class="form-control book-input" value="[]" readonly >
                     </div>
-                    <button type="submit" class="btn" id="book-now-btn">Book Now</button>
+                <div class="row">
+                    <div class="">
+                        <button type="submit" class="btn" id="book-now-btn">Book Now</button>
+                    </div>
                 </form>
-                <%if(user && user.user_type==='guest_customer'){%>
-                    <form action="/auth/logout">
-                        <button type="submit" class="btn"  style="background-color: rgb(247, 16, 16); margin-left: 50%;" id="exit-btn">Guest LogOut</button>
-                    </form>
-                <%}%>
-                <!-- <div>
-                    <p><%-msg;%></p>
-                </div> -->
-                
+                    <div class="">
+                        <%if(user && user.user_type==='guest_customer'){%>
+                            <form action="/auth/logout">
+                                <button type="submit" class="btn"  style="background-color: rgb(247, 16, 16); margin-left: 50%;" id="exit-btn">Guest LogOut</button>
+                            </form>
+                        <%}%>
+                    </div>
+                </div>
+                       
                 <input type="text" hidden id="unavailable-seats" value="<%=JSON.stringify(unavailableSeats)%>">
                 <input type="text" hidden id="already-booked-seats" value="<%=JSON.stringify(bookedSeatsByThisCustomer)%>">
             </div>
