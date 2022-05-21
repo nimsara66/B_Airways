@@ -7,7 +7,13 @@ class SeatBooking{
         this.booking_id = booking_id;
     }
 
-    //TODO Transactions and condition xhecking
+
+    /*
+        Books this seat booking for given customer_id if it is available. If not booking falis.
+        Return Value
+            If booking success,     true    boolean
+            Otherwise               false   boolean
+    */
     book(customer_id){
         return new Promise(async (resolve, reject)=>{
             try{
@@ -24,6 +30,13 @@ class SeatBooking{
         })
     }
     
+
+    /*
+        Returns booking id for given schedue_id and seat_id.
+        If there is not such id retuns false.
+        Return Values
+            booking_id      int
+    */
     static findBookingIdfromScheduleIdAndSeatId(schedule_id, seat_id){
         return new Promise(async (resolve, reject)=>{
             try{
@@ -38,23 +51,6 @@ class SeatBooking{
                 }
             } catch(e){return reject(e)}
         })        
-    }
-    
-
-    static findSeatIdsForCustomerIdAndScheduleId(customer_id, schedule_id){
-        return new Promise(async (resolve, reject)=>{
-            try{
-                let [rows, cols] = await db.query(
-                    'SELECT seat_id from Seat_Booking where schedule_id=? and customer_id=?',
-                    [schedule_id, customer_id]
-                )
-                let bookedSeats = []
-                rows.forEach(row => {
-                    bookedSeats.push(row.seat_id)
-                });
-                resolve(bookedSeats)
-            } catch(e){return reject(e)}
-        })          
     }
 
 

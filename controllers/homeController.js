@@ -5,6 +5,7 @@ const { GuestCustomerSchema } = require('../validation/index')
 const registerGuest = async (req, res, next) => {
     try {
         // validate
+        /*
         const {
             email,
             first_name,
@@ -16,7 +17,7 @@ const registerGuest = async (req, res, next) => {
             address_line2,
             birthday
         } = await GuestCustomerSchema.validateAsync(req.body)
-            
+            */
         const guestCustomer = new GuestCustomer(
             req.body.email,
             req.body.first_name,
