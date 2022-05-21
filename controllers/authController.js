@@ -6,6 +6,7 @@ const { StatusCodes } = require('http-status-codes')
 const registerCustomer = async (req, res, next) => {
     try {
         // validate
+        
         const {
             email,
             password,
@@ -21,7 +22,7 @@ const registerCustomer = async (req, res, next) => {
             city,
             birthday
         } = await RegisteredCustomerSchema.validateAsync(req.body)
-
+        
         // check if user exist
         const [ customers, _ ] = await RegisteredCustomer.findByEmail(email)
         if (customers.length>0) {

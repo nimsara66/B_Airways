@@ -82,7 +82,7 @@
                     <div class="inputBox">
                         <input type="text" class="box" name="email" placeholder="Email">        
                     </div>
-                    <input type="text" name="schedule_id" class="form-control book-input" value="<%=flightSchedule.schedule_id%>" readonly hidden>
+                    <input type="text" name="schedule_id" class="form-control book-input" value="<%=flightScheduleData.schedule_id%>" readonly hidden>
                     <button type="submit" class="btn" >Submit</button>
                 </form>
             </div>
@@ -104,11 +104,11 @@
 
                     <div class="inputBox">
                         <h3>Origin</h3>
-                        <input type="text" placeholder="place name" readonly value="<%=route.origin%>">
+                        <input type="text" placeholder="place name" readonly value="<%=flightScheduleData.origin%>">
                     </div>
                     <div class="inputBox">
                         <h3>Destination</h3>
-                        <input type="text" placeholder="place name" readonly value="<%=route.destination%>">
+                        <input type="text" placeholder="place name" readonly value="<%=flightScheduleData.destination%>">
                     </div>
                     <div class="inputBox">
                         <h3>how many booked by yu</h3>
@@ -116,15 +116,15 @@
                     </div>
                     <div class="inputBox">
                         <h3>arrivals</h3>
-                        <input type="text" value="<%=flightSchedule.arrival_date%>" readonly >
+                        <input type="text" value="<%=flightScheduleData.arrival_date%>" readonly >
                     </div>
                     <div class="inputBox">
                         <h3>leaving</h3>
-                        <input type="text" value="<%=flightSchedule.departure_date%>" readonly >
+                        <input type="text" value="<%=flightScheduleData.departure_date%>" readonly >
                     </div>
                     <div hidden>
-                        <input type="text" name="schedule_id" class="form-control book-input" value="<%=flightSchedule.schedule_id%>" readonly>
-                        <input type="text" name="aircraft_id" class="form-control book-input" value="<%=flightSchedule.aircraft_id%>" readonly>
+                        <input type="text" name="schedule_id" class="form-control book-input" value="<%=flightScheduleData.schedule_id%>" readonly>
+                        <input type="text" name="aircraft_id" class="form-control book-input" value="<%=flightScheduleData.aircraft_id%>" readonly>
                         <input type="text" id="selected-seats" name="selected_seats" class="form-control book-input" value="[]" readonly >
                     </div>
                 <div class="row">
@@ -141,8 +141,9 @@
                     </div>
                 </div>
                        
-                <input type="text" hidden id="unavailable-seats" value="<%=JSON.stringify(unavailableSeats)%>">
-                <input type="text" hidden id="already-booked-seats" value="<%=JSON.stringify(bookedSeatsByThisCustomer)%>">
+                <input type="text" hidden id="unavailable-seats" value="<%=JSON.stringify(seatBookingData.unavailableSeats)%>">
+                <input type="text" hidden id="occupied-seats" value="<%=JSON.stringify(seatBookingData.occupiedSeats)%>">
+                <input type="text" hidden id="already-booked-seats" value="<%=JSON.stringify(seatBookingData.bookedSeatsByThisCustomer)%>">
             </div>
 
 

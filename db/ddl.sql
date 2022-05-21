@@ -9,7 +9,7 @@ create table Aircraft_Model(
     variant                     varchar(10) not null,
     economy_seat_capacity       int(5),
     business_seat_capacity      int(5),
-    platnum_seat_capacity       int(5),
+    platinum_seat_capacity       int(5),
     economy_seats_per_row       int(3),
     business_seats_per_row      int(3),
     platinum_seats_per_row      int(3),
