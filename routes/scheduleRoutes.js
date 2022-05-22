@@ -1,10 +1,10 @@
 const express = require('express')
 const router = express.Router()
 
+const { 
+    home
+} = require('../controllers/scheduleController')
 
-router.get('/', function (req, res, next) {
-    let user=false;
-    res.render('schedule' , { title: 'Express' ,user:user});
-})
+router.get('/',home)
 
 module.exports = router;
