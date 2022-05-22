@@ -19,6 +19,7 @@ create table Aircraft_Model(
 create table Location(
     location_id             varchar(10) primary key,
     parent_location_id      varchar(10),
+    name                    varchar(30),
     foreign key     (parent_location_id)
         references Location(location_id)
 );
