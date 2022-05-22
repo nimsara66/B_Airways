@@ -33,4 +33,10 @@ router.get('/protected', staffAuth, (req, res, next) => {
     res.json({ data: 'entered staff protected' })
 })
 
+router.get('/edit_airplanes', function (req, res, next) {
+    let user=req.user;
+    res.render('staff/edit_airplanes' , { title: 'Express' ,user:user});
+})
+
+
 module.exports = router
