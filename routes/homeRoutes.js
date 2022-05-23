@@ -9,7 +9,7 @@ const {
 } = require('../controllers/homeController')
 
 router.get('/', function (req, res, next) {
-    let user=false;
+    let user=req.user;
     console.log(req.user);
     res.render('index', { title: 'Express', user:user });
 })
