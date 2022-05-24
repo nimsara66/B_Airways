@@ -122,6 +122,18 @@
                         <h3>leaving</h3>
                         <input type="text" value="<%=flightScheduleData.departure_date%>" readonly >
                     </div>
+                    <div class="inputBox">
+                        <h3>Base Price</h3>
+                        <input type="text" id="base-price" readonly >
+                    </div>
+                    <div class="inputBox">
+                        <h3>Discount</h3>
+                        <input type="text" name="discount" value="<%=priceData && priceData.discount ? priceData.discount:0%>%" readonly>
+                    </div>
+                    <div class="inputBox">
+                        <h3>Total Price</h3>
+                        <input type="text" id="final-price"  readonly >
+                    </div>
                     <div hidden>
                         <input type="text" name="schedule_id" class="form-control book-input" value="<%=flightScheduleData.schedule_id%>" readonly>
                         <input type="text" name="aircraft_id" class="form-control book-input" value="<%=flightScheduleData.aircraft_id%>" readonly>
@@ -140,10 +152,20 @@
                         <%}%>
                     </div>
                 </div>
-                       
+                     
+                
+
+
                 <input type="text" hidden id="unavailable-seats" value="<%=JSON.stringify(seatBookingData.unavailableSeats)%>">
                 <input type="text" hidden id="occupied-seats" value="<%=JSON.stringify(seatBookingData.occupiedSeats)%>">
                 <input type="text" hidden id="already-booked-seats" value="<%=JSON.stringify(seatBookingData.bookedSeatsByThisCustomer)%>">
+                <input type="text" hidden id="platinum-price" value="<%=priceData.prices.platinum%>">
+                <input type="text" hidden id="business-price" value="<%=priceData.prices.business%>">
+                <input type="text" hidden id="economy-price" value="<%=priceData.prices.economy%>">
+                <input type="text" hidden id="after-discount-platinum-price" value="<%=priceData.afterDiscount.platinum%>">
+                <input type="text" hidden id="after-discount-business-price" value="<%=priceData.afterDiscount.business%>">
+                <input type="text" hidden id="after-discount-economy-price" value="<%=priceData.afterDiscount.economy%>">
+               
             </div>
 
 

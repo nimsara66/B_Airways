@@ -9,6 +9,8 @@ const Pricing = require("../models/Pricing")
 const { session } = require("passport/lib")
 const messageHelper = require("../helpers/messageHelper")
 
+
+
 /*
     GET Renders booking interface for releavant schedule id.
 */
@@ -26,7 +28,6 @@ const viewBook = async (req,res,next)=>{
         let flightScheduleData = await flightSchedule.getScheduleData();
         let aircraft = new Aircraft(flightScheduleData.aircraft_id)
         let seatData = await aircraft.getAircraftSeatData()
-        console.log(seatData)
         if(req.user && req.user.customer_id){
             customer_id = user.customer_id;  
             /* Message Creating */
@@ -40,7 +41,16 @@ const viewBook = async (req,res,next)=>{
             }
         }
         let seatBookingData = await flightSchedule.getSeatBookingData(customer_id)
-        res.render('book/book', {flightScheduleData, seatData, seatBookingData, msg,user});
+
+        let [pricelist, _] = await Pricing.getPrices(schedule_id);
+        let prices = {}
+        pricelist.map(priceRow=>prices[priceRow.traveller_class_name]=priceRow.price)
+        let [discount, d] = await Pricing.getDiscount(user? user.user_type :'');
+        discount = discount && discount.length>0?discount[0].discount_percentage:0
+        let afterDiscount = {}
+        pricelist.map(pricelist => afterDiscount[pricelist.traveller_class_name] = parseFloat(pricelist.price)-parseFloat(discount)*parseFloat(pricelist.price)/100)
+        let priceData = {prices,afterDiscount,discount};
+        res.render('book/book', {flightScheduleData, seatData, seatBookingData, msg,user, priceData});
     }catch(err){
         return next(err)
     }
@@ -91,29 +101,10 @@ const bookTickets = async (req,res,next)=>{
     }    
 }
 
-const getSeatPrice = async (req, res, next) =>{
-
-    try {
-        let schedule_id = req.params.schedule_id;
-        let user = req.user;
-        let [pricelist, _] = await Pricing.getPrices(schedule_id);
-        let [discount, d] = await Pricing.getDiscount(user? user.user_type :'');
-
-        const afterdiscount = pricelist.map(pricelist => parseInt(pricelist.price)-parseInt(discount[0]?discount[0].discount_percentage : 0));
-        console.log(afterdiscount)
-        res.json(pricelist.length>0?{ data: pricelist,afterdiscount:afterdiscount , msg: 'success' } :{ data: "", msg: 'route_id not found' })
-        
-    } catch (error) {
-        console.log(error)
-        res.json({ data: "", msg: 'failed' })
-    }
-
-}
 
 
 
 module.exports = {
     viewBook,
-    bookTickets,
-    getSeatPrice
+    bookTickets
 }
