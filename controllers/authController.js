@@ -56,22 +56,27 @@ const registerCustomer = async (req, res, next) => {
 }
 
 const loginCustomer = (req, res, next) => {
-    let user=false;
-    res.status(StatusCodes.OK).render('login_register/login', { message: null, user:user })
+    req.logout()
+    res.status(StatusCodes.OK).render('login_register/login', { message: null, user: req.user })
+}
+
+const loginCustomerSuccess = (req, res, next) => {
+    res.redirect('/')
 }
 
 const loginCustomerFailure = (req, res, next) => {
-    res.status(401).render('login', { message: 'Invalid Credentials' })
+    res.status(401).render('login_register/login', { message: 'Invalid Credentials', user: req.user })
 }
 
 const logoutCustomer = (req, res, next) => {
-    req.logout();
-    res.redirect('/');
+    req.logout()
+    res.redirect('/')
 }
 
 module.exports = {
     registerCustomer,
     loginCustomer,
+    loginCustomerSuccess,
     loginCustomerFailure,
     logoutCustomer
 }
