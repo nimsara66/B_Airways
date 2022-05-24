@@ -42,6 +42,7 @@ const viewBook = async (req,res,next)=>{
         }
         let seatBookingData = await flightSchedule.getSeatBookingData(customer_id)
 
+        // get ticket price with discount part
         let [pricelist, _] = await Pricing.getPrices(schedule_id);
         let prices = {}
         pricelist.map(priceRow=>prices[priceRow.traveller_class_name]=priceRow.price)
