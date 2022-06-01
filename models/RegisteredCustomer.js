@@ -83,4 +83,4 @@ class RegisteredCustomer{
     }
 }
 
-module.exports = RegisteredCustomer
+module.exports = RegisteredCustomer;
