@@ -36,36 +36,37 @@
       <h1 class="heading"> <span>Airplanes details</span> </h1>
 
 
+      <form action="" method="POST">
+        <div class="input-group">
 
-      <div class="input-group">
-        <input type="text" class="form-control" placeholder="modelname"
-          aria-label="Recipient's username with two button addons">
-        <input type="text" class="form-control" placeholder="varient"
-          aria-label="Recipient's username with two button addons">
-        <input type="text" class="form-control" placeholder="E seat capacity"
-          aria-label="Recipient's username with two button addons">
-        <input type="text" class="form-control" placeholder="B seat capacity"
-          aria-label="Recipient's username with two button addons">
-        <input type="text" class="form-control" placeholder="P seat capacity"
-          aria-label="Recipient's username with two button addons">
+          <input type="text" class="form-control" placeholder="modelname"
+            aria-label="Recipient's username with two button addons" name="modelname">
+          <input type="text" class="form-control" placeholder="varient"
+            aria-label="Recipient's username with two button addons" name="varient">
+          <input type="text" class="form-control" placeholder="E seat capacity"
+            aria-label="Recipient's username with two button addons" name=" E_seat_cap">
+          <input type="text" class="form-control" placeholder="B seat capacity"
+            aria-label="Recipient's username with two button addons" name="B_seat_cap">
+          <input type="text" class="form-control" placeholder="P seat capacity"
+            aria-label="Recipient's username with two button addons" name="P_seat_cap">
 
-        <input type="text" class="form-control" placeholder="E SPR"
-          aria-label="Recipient's username with two button addons">
-        <input type="text" class="form-control" placeholder="B SPR"
-          aria-label="Recipient's username with two button addons">
-        <input type="text" class="form-control" placeholder="P SPR"
-          aria-label="Recipient's username with two button addons">
-        <input type="text" class="form-control" placeholder="Max Weight"
-          aria-label="Recipient's username with two button addons">
-
-
-
-        <button class="btn btn-outline-secondary" type="button">Add</button>
+          <input type="text" class="form-control" placeholder="E SPR"
+            aria-label="Recipient's username with two button addons" name="E_SPR">
+          <input type="text" class="form-control" placeholder="B SPR"
+            aria-label="Recipient's username with two button addons" name="B_SPR">
+          <input type="text" class="form-control" placeholder="P SPR"
+            aria-label="Recipient's username with two button addons" name="P_SPR">
+          <input type="text" class="form-control" placeholder="Max Weight"
+            aria-label="Recipient's username with two button addons" name="max_weight">
 
 
-      </div>
+
+          <button class="btn btn-outline-secondary" type="submit">Add</button>
 
 
+        </div>
+
+      </form>
 
 
       <div class="row">
@@ -86,12 +87,12 @@
                 <th scope="col">B SPR</th>
                 <th scope="col">P SPR</th>
                 <th scope="col">Max Weight</th>
-                
+
                 <!--<th scope="col">del</th>-->
               </tr>
             </thead>
             <tbody>
-              <% for(let i=0;i<aircraftModels.lenght;i++) { %>
+              <% for(let i=0; i<aircraftModels.length; i++) { %>
                 <tr>
                   <th scope="row">
                     <%= i+1 %>
@@ -126,7 +127,7 @@
                   </td>
                 </tr>
                 <% } %>
-                }
+                  }
 
             </tbody>
           </table>

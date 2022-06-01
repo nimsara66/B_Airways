@@ -46,6 +46,9 @@ app.use('/schedule', scheduleRoutes);
 const bookRoutes = require('./routes/bookRoutes')
 app.use('/book', bookRoutes);
 
+const aircraftmodelRoutes = require("./routes/aircraftmodelRoutes")
+app.use('/aircraft', aircraftmodelRoutes);
+
 const notFoundMiddleware = require('./middleware/not-found')
 const errorHandlerMiddeware = require('./middleware/error-handler')
 app.use(notFoundMiddleware)

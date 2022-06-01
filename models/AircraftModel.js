@@ -3,7 +3,6 @@ const db = require('../db/connect')
 class AircraftModel {
 
     constructor(
-        model_id,
         model_name,
         variant,
         economy_seat_capacity,
@@ -14,7 +13,6 @@ class AircraftModel {
         platinum_seats_per_row,
         max_weight
     ) {
-        this.model_id=model_id,
         this.model_name=model_name,
         this.variant=variant,
         this.economy_seat_capacity=economy_seat_capacity,
@@ -28,9 +26,8 @@ class AircraftModel {
 
     create() {
         return db.query(
-            "INSERT INTO Aircraft_Model(model_id, model_name,varianteconomy_seat_capacity, business_seat_capacity,platinum_seat_capacity, economy_seats_per_row, business_seats_per_row, platinum_seats_per_row, max_weight) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+            "INSERT INTO Aircraft_Model(model_name,variant,economy_seat_capacity, business_seat_capacity,platinum_seat_capacity, economy_seats_per_row, business_seats_per_row, platinum_seats_per_row, max_weight) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
             [
-                this.model_id,
                 this.model_name,
                 this.variant,
                 this.economy_seat_capacity,

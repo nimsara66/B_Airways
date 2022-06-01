@@ -4,12 +4,12 @@ create table Traveller_Class(
 );
 
 create table Aircraft_Model(
-    model_id                    varchar(10) primary key,
+    model_id                    int primary key auto_increment,
     model_name                  varchar(10) not null,
     variant                     varchar(10) not null,
     economy_seat_capacity       int(5),
     business_seat_capacity      int(5),
-    platinum_seat_capacity       int(5),
+    platinum_seat_capacity      int(5),
     economy_seats_per_row       int(3),
     business_seats_per_row      int(3),
     platinum_seats_per_row      int(3),
@@ -43,7 +43,7 @@ create table Route(
 
 create table Aircraft(
     aircraft_id         varchar(10) primary key,
-    model_id            varchar(10),
+    model_id            int,
     airport_id          varchar(10),
     aircraft_state      enum('active', 'inactive', 'depricated'),
     foreign key     (model_id)
