@@ -1,6 +1,6 @@
 const AircraftModel = require("../models/AircraftModel")
 
-const home =async (req,res,next) => {
+const viewAircraftModels =async (req,res,next) => {
     let user=false;
 
     const aircraftModels =await AircraftModel.getAll();
@@ -10,4 +10,4 @@ const home =async (req,res,next) => {
 
 
 
-module.exports={home};
+module.exports={viewAircraftModels};

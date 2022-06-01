@@ -2,9 +2,9 @@ const express = require('express')
 const router = express.Router()
 
 const { 
-    home
+    viewAircraftModels
 } = require('../controllers/aircraftmodelController')
 
-router.get('/',home)
+router.get('/',viewAircraftModels)
 
 module.exports = router;
