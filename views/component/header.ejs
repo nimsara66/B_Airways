@@ -15,7 +15,7 @@
         <a href="/">home</a>
         <!-- <a href="/book">book</a> -->
 
-        <% if(user && user.user_type=='staff'){ %> 
+        <% if(user && user.user_type!=='staff'){ %> 
             <a href="/staff/edit_schedule">editSchedule</a>
             <a href="/staff/edit_airplanes">editAirplanes</a>
         <% } else{ %> 
