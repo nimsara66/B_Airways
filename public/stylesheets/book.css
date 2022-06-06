@@ -74,18 +74,19 @@ section {
   display: flex;
   flex-wrap: wrap;
   gap: 1.5rem;
+  margin: 10px;
  
   /* align-items: center; */
 }
 
 .book .row .left-col {
-  background-color: #ffffff;
+  /* background-color: #ffffff; */
   color: rgb(25, 24, 24);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  min-height: 100vh;
   font-family: "Lato", sans-serif;
   margin: 0;
 
@@ -102,6 +103,7 @@ section {
   padding: 1rem;
   box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.3);
   border-radius: 0.5rem;
+ 
 }
 
 .book .row .image img {
@@ -115,23 +117,37 @@ section {
   border-radius: 0.5rem;
 } */
 
+.book .row .up form .inputBox input {
+  padding: 1rem;
+  font-size: 1.5rem;
+
+}
+
 .book .row form .inputBox {
   padding: 0.5rem 0;
+  
 }
 
 .book .row form .inputBox input {
   width: 100%;
-  padding: 1rem;
+  padding: 0.5rem;
   border: 0.1rem solid rgba(0, 0, 0, 0.1);
-  font-size: 1.7rem;
+  font-size: 1.4rem;
   color: #333;
   text-transform: none;
 }
 
 .book .row form .inputBox h3 {
-  font-size: 2rem;
-  padding: 1rem 0;
+  font-size: 1.6rem;
+  padding: 0.5rem 0;
   color: #666;
+}
+
+
+
+.title{
+  font-size:medium;
+  margin: 10px;
 }
 
 /* --------------------------------- */

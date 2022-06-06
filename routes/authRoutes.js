@@ -4,6 +4,7 @@ const router = express.Router()
 const { 
     registerCustomer,
     loginCustomer,
+    loginCustomerSuccess,
     loginCustomerFailure,
     logoutCustomer
 } = require('../controllers/authController')
@@ -11,7 +12,7 @@ const {
 /* register */
 router.get('/register', function(req, res, next) {
     let msg = req.session.msg
-    let user=false;
+    let user=req.user;
     delete req.session.msg
     res.render('login_register/regCustomer_register', {title:'Register', msg:msg, user:user})
 })
@@ -24,15 +25,9 @@ router.post('/login', passport.authenticate('customer', {
     successRedirect: '/auth/login-success'
 }))
 
-// TODO
-router.get('/login-success', (req, res, next) => {
-    res.json({ data: req.user, msg: 'login successfully' })
-})
+router.get('/login-success', loginCustomerSuccess)
 
-// router.get('/login-failure', loginCustomerFailure)
-router.get('/login-failure', (req, res, next) => {
-    res.json({ data: req.user, msg: 'login failure' })
-})
+router.get('/login-failure', loginCustomerFailure)
 
 /* logout */
 router.get('/logout', logoutCustomer)

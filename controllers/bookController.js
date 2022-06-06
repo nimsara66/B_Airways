@@ -5,69 +5,74 @@ const Aircraft = require("../models/Aircraft")
 const Route = require("../models/Route")
 const AircraftSeat = require("../models/AircraftSeat")
 const SeatBooking = require("../models/SeatBooking")
+const Pricing = require("../models/Pricing")
 const { session } = require("passport/lib")
+const messageHelper = require("../helpers/messageHelper")
+
 
 
 /*
-    Renders booking interface for releavant schedule id.
+    GET Renders booking interface for releavant schedule id.
 */
 const viewBook = async (req,res,next)=>{
-    let user=false;
+    let user=req.user;
     let schedule_id = req.params.schedule_id;
-    let customer_id = '1';      //get from req.user  TODO
-    let flightSchedule , model_id, unavailableSeats, route, bookedSeatsByThisCustomer ;
     let msg = ""
+    let customer_id;
+    if(req.session.msg){
+        msg=req.session.msg
+        delete req.session.msg
+    } 
     try{
-        flightSchedule = await FlightSchedule.getScheduleDataUsingScheduleId(schedule_id);
-        route = await Route.getRouteUsingRouteId(flightSchedule.route_id)
-        model_id = await Aircraft.getAircraftModelIdUsingAircraftId(flightSchedule.aircraft_id)
-        seatData = await AircraftModel.getSeatDataUsingModelId(model_id)
-        unavailableSeats = await Aircraft.getUnavailableAndOccupiedSeatsForAircraft(flightSchedule.aircraft_id)
-        bookedSeatsByThisCustomer = await SeatBooking.findSeatIdsForCustomerIdAndScheduleId(customer_id, schedule_id)
-        seatData.available_num = seatData.total_num - unavailableSeats.length
-        if(req.session.ableToBookSeats && req.session.ableToBookSeats[customer_id] && req.session.ableToBookSeats[customer_id].length){
-            msg = msg + "Seat numbers "
-            let i =0;
-            req.session.ableToBookSeats[customer_id].forEach(seat_id => {
-                i+=1;
-                msg = msg + seat_id
-                if(i!=req.session.ableToBookSeats[customer_id].length){
-                    msg = msg + ","
-                }
-                msg = msg + " ";
-            });
-            msg = msg + "were succesfully booked.\n"
-            delete req.session.ableToBookSeats.customer_id
+        let flightSchedule = new FlightSchedule(schedule_id)
+        let flightScheduleData = await flightSchedule.getScheduleData();
+        let aircraft = new Aircraft(flightScheduleData.aircraft_id)
+        let seatData = await aircraft.getAircraftSeatData()
+        if(req.user && req.user.customer_id){
+            customer_id = user.customer_id;  
+            /* Message Creating */
+            if(req.session.ableToBookSeats && req.session.ableToBookSeats[customer_id]){
+                msg = msg + messageHelper.createAbleSeatBookMessage(req.session.ableToBookSeats[customer_id])
+                delete req.session.ableToBookSeats[customer_id]
+            }
+            if(req.session.unableToBookSeats && req.session.unableToBookSeats[customer_id]){
+                msg = msg + messageHelper.createUnableSeatBookMessage(req.session.unableToBookSeats[customer_id])
+                delete req.session.unableToBookSeats[customer_id]
+            }
         }
-        if(req.session.unableToBookSeats && req.session.unableToBookSeats[customer_id] && req.session.unableToBookSeats[customer_id].length){
-            msg = msg + "Seat numbers "
-            let i =0;
-            req.session.unableToBookSeats[customer_id].forEach(seat_id => {
-                i+=1;
-                msg = msg + seat_id
-                if(i!==req.session.unableToBookSeats[customer_id].length){
-                   msg = msg + ","
-                }
-                msg = msg + " ";
-            });
-            msg = msg + "were aready booked. Please try to book diffrent seats.\n"
-            delete req.session.unableToBookSeats.customer_id
-        }
-        res.render('book/book', {flightSchedule, route, seatData, unavailableSeats, msg, bookedSeatsByThisCustomer,user:user});
+        let seatBookingData = await flightSchedule.getSeatBookingData(customer_id)
+
+        // get ticket price with discount part
+        let [pricelist, _] = await Pricing.getPrices(schedule_id);
+        let prices = {}
+        pricelist.map(priceRow=>prices[priceRow.traveller_class_name]=priceRow.price)
+        let [discount, d] = await Pricing.getDiscount(user? user.user_type :'');
+        discount = discount && discount.length>0?discount[0].discount_percentage:0
+        let afterDiscount = {}
+        pricelist.map(pricelist => afterDiscount[pricelist.traveller_class_name] = parseFloat(pricelist.price)-parseFloat(discount)*parseFloat(pricelist.price)/100)
+        let priceData = {prices,afterDiscount,discount};
+        res.render('book/book', {flightScheduleData, seatData, seatBookingData, msg,user, priceData});
     }catch(err){
-        return res.json(err)
+        return next(err)
     }
 }
 
 
 /*
-    handles POST book request.
-    Booking is made if that requested seat is already not booked.
+    POST Booking is made if that requested seat is already not booked.
 */
 const bookTickets = async (req,res,next)=>{
     let schedule_id = req.body.schedule_id;
-    let customer_id = '1';      //get from req.user
-    let selected_seats = JSON.parse(req.body.selected_seats)    
+    if(!(req.user && req.user.customer_id)){
+        req.session.msg = "Fill Guest Customer Form or log in as registered customer."
+        return res.redirect(`/book/${schedule_id}`)
+    } 
+    if(!(req.body.selected_seats)){
+        req.session.msg = "Select at least one seat to prceed."
+        return res.redirect(`/book/${schedule_id}`)
+    } 
+    let customer_id = req.user.customer_id;    
+    let selected_seats = JSON.parse(req.body.selected_seats) 
     try{
         let i = 0;
         let unableToBookSeats = []
@@ -76,6 +81,7 @@ const bookTickets = async (req,res,next)=>{
             let booking_id = await SeatBooking.findBookingIdfromScheduleIdAndSeatId(schedule_id, seat_id)
             let seatbooking = new SeatBooking(booking_id)
             let isBookingSuccess = await seatbooking.book(customer_id)
+            /*   Message Creating  */
             if(!isBookingSuccess)   unableToBookSeats.push(seat_id) 
             else    ableToBookSeats.push(seat_id)
             i+=1;
@@ -92,9 +98,11 @@ const bookTickets = async (req,res,next)=>{
             }      
         });       
     }catch(err){
-        return res.json({msg:err.message})
+        return next(err)
     }    
 }
+
+
 
 
 module.exports = {

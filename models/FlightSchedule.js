@@ -7,12 +7,25 @@ class FlightSchedule{
         this.schedule_id = schedule_id;
     }
 
-    static getScheduleDataUsingScheduleId(schedule_id){
+    /*
+        Returns schedule data for this schedule id.
+        Return Values
+            Object          Containing all scheduling data
+    */
+    getScheduleData(schedule_id){
         return new Promise(async (resolve, reject)=>{
             try{
-                let [rows, cols] = await db.query(
-                    'SELECT * from Flight_Schedule where schedule_id=? LIMIT 1',
-                    [schedule_id]
+                let [rows, _] = await db.query(
+                    'SELECT schedule_id, ' +
+                    'aircraft_id, ' +
+                    'departure_date, ' +      
+                    'departure_time, ' +     
+                    'arrival_date, ' +     
+                    'arrival_time, ' +    
+                    'origin, ' +
+                    'destination ' +  
+                    'from Flight_Schedule INNER JOIN Route USING(route_id) WHERE schedule_id=? LIMIT 1',
+                    [this.schedule_id]
                 )
                 if(rows.length){
                     return resolve(rows[0])
@@ -22,6 +35,7 @@ class FlightSchedule{
             } catch(e){return reject(e)}
         })        
     }
+
 
     static getFullSchedule(){
         // today_date = Date.now();
@@ -75,6 +89,55 @@ class FlightSchedule{
                 }
             } catch(e){return reject(e)}
         })       
+
+
+    /*
+        Returns Seats for seat booking for given state and this schedule_id.
+        Return Values
+            seats       Array          Containing seats for seat bookings in given state
+    */
+    getSeatBookingHelper(state){
+        return new Promise(async (resolve, reject)=>{
+            try{
+                let [rows, _] = await db.query(
+                    'SELECT seat_id from Seat_Booking where state=? and schedule_id=?',
+                    [state, this.schedule_id]
+                )
+                let seats = []
+                rows.forEach(element => {
+                    seats.push(element.seat_id)
+                });
+                return resolve(seats)
+            } catch(e){return reject(e)}    
+        })
+    }
+
+
+    /*
+        Returns Seats grouped considering seat booking state for this schedule_id.
+        Return Values
+            Object         Containing separate arrays for each state
+    */
+    getSeatBookingData(customer_id){
+        return new Promise(async (resolve, reject)=>{
+            try{
+                let availableSeats = await this.getSeatBookingHelper('available');
+                let occupiedSeats = await this.getSeatBookingHelper('occupied');
+                let unavailableSeats = await this.getSeatBookingHelper('unavailable');
+                let bookedSeatsByThisCustomer = []
+                if(customer_id){
+                    let [rows, _] = await db.query(
+                        'SELECT seat_id from Seat_Booking where customer_id=? and schedule_id=?',
+                        [customer_id, this.schedule_id]
+                    ) 
+                    rows.forEach(element => {
+                        bookedSeatsByThisCustomer.push(element.seat_id)
+                    }); 
+                }
+                return resolve({availableSeats,occupiedSeats,unavailableSeats,bookedSeatsByThisCustomer});
+            } catch(e){return reject(e)}
+        })         
+
     }
   
 }

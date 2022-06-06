@@ -3,12 +3,14 @@
 </div>
 
 <div style="margin: 10px;">
-    <button style="background-color: aqua; color: aliceblue; padding: 5px; " disabled>Available</button>
+    <button style="background-color: rgb(81, 194, 194); color: aliceblue; padding: 5px; " disabled>Available</button>
     <button style="background-color: green; color: aliceblue; padding: 5px; " disabled>Selected</button>
     <button style="background-color: blue; color: aliceblue; padding: 5px; " disabled>Owned</button>    
     <button style="background-color: red; color: aliceblue; padding: 5px; " disabled >Booked</button>
 
 </div>
+
+
 
                 
 <div class="Platinum-Seats">
@@ -20,7 +22,7 @@
         <%for(let j=0;j<seatData.platinum_seats_per_row;j++){
             id+=1;
             %>                
-            <button class="btn seat-id-button" id="Seat-<%=id%>"><%-id%></button>
+            <button class="btn seat-id-button platinum-seat-button" id="Seat-<%=id%>"><%-id%></button>
         <%}%>
         </div>
     <%}%>
@@ -34,7 +36,7 @@
         <%for(let j=0;j<seatData.business_seats_per_row;j++){
             id+=1;
             %>                
-            <button class="btn seat-id-button" id="Seat-<%=id%>"><%-id%></button>
+            <button class="btn seat-id-button business-seat-button" id="Seat-<%=id%>"><%-id%></button>
         <%}%>
         </div>
     <%}%>
@@ -48,7 +50,7 @@
         <%for(let j=0;j<seatData.economy_seats_per_row;j++){
             id+=1;
             %>                
-            <button class="btn seat-id-button" id="Seat-<%=id%>"><%-id%></button>
+            <button class="btn seat-id-button economy-seat-button" id="Seat-<%=id%>"><%-id%></button>
         <%}%>
         </div>
     <%}%>

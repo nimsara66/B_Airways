@@ -22,7 +22,7 @@
 <body>
       <!-- header section starts  -->
 
-      <%- include('component/header.ejs'); %>
+      <%- include('component/header.ejs',{user}); %>
 
       <!-- header section ends -->
 
@@ -62,6 +62,7 @@
                       </tr>
                     </thead>
                     <tbody>
+
 
                       <% for (let i=0;i<schedules.length;i++){ %>
                         <tr>

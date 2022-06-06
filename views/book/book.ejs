@@ -18,7 +18,7 @@
 
 <body>
 
-    <%- include('../component/header.ejs'); %>
+    <%- include('../component/header.ejs',{user}); %>
 
 
 
@@ -36,19 +36,79 @@
             <span>w</span>
         </h1>
 
+        <% if(!user){ %> 
+
+        <div class="row">
+
+            <div class="left-right up" >
+                <div class="title">
+
+                    <h1>Book tickets as a guest</h1>
+                    <h3>(If you want to get discount and other benifits please create a customer account)</h3>
+                </div>
+                
+
+                <form action="/register" id="guest-form" method="post">
+                    <div class="inputBox">
+                        <input type="text" class="box" name="first_name" placeholder="First Name">
+                    </div>
+                    <div class="inputBox">
+                        <input type="text" class="box" name="last_name" placeholder="Last Name">
+                    </div>
+                    <div class="inputBox">
+                        <input type="text" class="box" name="gender" placeholder="Gender">
+                    </div>
+
+                    <div class="inputBox">
+                        <input type="text" class="box" name="contact_number" placeholder="Contact Number">
+                    </div>
+
+                    <div class="inputBox">
+                        <input type="text" class="box" name="passport_number" placeholder="Passport Number">
+                    </div>
+
+                    <div class="inputBox">
+                        <input type="text" class="box" name="address_line1" placeholder="Address Line 1">
+                    </div>
+
+                    <div class="inputBox">
+                        <input type="text" class="box" name="address_line2" placeholder="Address Line 2">
+                    </div>
+
+                    <div class="inputBox">
+                        <input type="text" class="box" name="birthday" placeholder="Birthday">
+                    </div>
+
+                    <div class="inputBox">
+                        <input type="text" class="box" name="email" placeholder="Email">        
+                    </div>
+                    <input type="text" name="schedule_id" class="form-control book-input" value="<%=flightScheduleData.schedule_id%>" readonly hidden>
+                    <button type="submit" class="btn" >Submit</button>
+                </form>
+            </div>
+
+        </div>
+        <% } %> 
+
         <div class="row">
 
 
             <div class="left-right">
 
                 <form action="" id="book-form" method="post">
+                    <div class="title">
+
+                        <h3>ticket deatails</h3>
+                        
+                    </div>
+
                     <div class="inputBox">
                         <h3>Origin</h3>
-                        <input type="text" placeholder="place name" readonly value="<%=route.origin%>">
+                        <input type="text" placeholder="place name" readonly value="<%=flightScheduleData.origin%>">
                     </div>
                     <div class="inputBox">
                         <h3>Destination</h3>
-                        <input type="text" placeholder="place name" readonly value="<%=route.destination%>">
+                        <input type="text" placeholder="place name" readonly value="<%=flightScheduleData.destination%>">
                     </div>
                     <div class="inputBox">
                         <h3>how many booked by yu</h3>
@@ -56,35 +116,67 @@
                     </div>
                     <div class="inputBox">
                         <h3>arrivals</h3>
-                        <input type="text" value="<%=flightSchedule.arrival_date%>" readonly >
+                        <input type="text" value="<%=flightScheduleData.arrival_date%>" readonly >
                     </div>
                     <div class="inputBox">
                         <h3>leaving</h3>
-                        <input type="text" value="<%=flightSchedule.departure_date%>" readonly >
+                        <input type="text" value="<%=flightScheduleData.departure_date%>" readonly >
+                    </div>
+                    <div class="inputBox">
+                        <h3>Base Price</h3>
+                        <input type="text" id="base-price" readonly >
+                    </div>
+                    <div class="inputBox">
+                        <h3>Discount</h3>
+                        <input type="text" name="discount" value="<%=priceData && priceData.discount ? priceData.discount:0%>%" readonly>
+                    </div>
+                    <div class="inputBox">
+                        <h3>Total Price</h3>
+                        <input type="text" id="final-price"  readonly >
                     </div>
                     <div hidden>
-                        <input type="text" name="schedule_id" class="form-control book-input" value="<%=flightSchedule.schedule_id%>" readonly>
-                        <input type="text" name="aircraft_id" class="form-control book-input" value="<%=flightSchedule.aircraft_id%>" readonly>
+                        <input type="text" name="schedule_id" class="form-control book-input" value="<%=flightScheduleData.schedule_id%>" readonly>
+                        <input type="text" name="aircraft_id" class="form-control book-input" value="<%=flightScheduleData.aircraft_id%>" readonly>
                         <input type="text" id="selected-seats" name="selected_seats" class="form-control book-input" value="[]" readonly >
                     </div>
-                    <button type="submit" class="btn" id="book-now-btn">Book Now</button>
-                    <button type="submit" class="btn"  style="background-color: rgb(247, 16, 16); margin-left: 50%;" id="exit-btn">Exit</button>
-                    
-                    
-
+                <div class="row">
+                    <div class="">
+                        <button type="submit" class="btn" id="book-now-btn">Book Now</button>
+                    </div>
                 </form>
-                <!-- <div>
-                    <p><%-msg;%></p>
-                </div> -->
+                    <div class="">
+                        <%if(user && user.user_type==='guest_customer'){%>
+                            <form action="/auth/logout">
+                                <button type="submit" class="btn"  style="background-color: rgb(247, 16, 16); margin-left: 50%;" id="exit-btn">Guest LogOut</button>
+                            </form>
+                        <%}%>
+                    </div>
+                </div>
+                     
                 
-                <input type="text" hidden id="unavailable-seats" value="<%=JSON.stringify(unavailableSeats)%>">
-                <input type="text" hidden id="already-booked-seats" value="<%=JSON.stringify(bookedSeatsByThisCustomer)%>">
+
+
+                <input type="text" hidden id="unavailable-seats" value="<%=JSON.stringify(seatBookingData.unavailableSeats)%>">
+                <input type="text" hidden id="occupied-seats" value="<%=JSON.stringify(seatBookingData.occupiedSeats)%>">
+                <input type="text" hidden id="already-booked-seats" value="<%=JSON.stringify(seatBookingData.bookedSeatsByThisCustomer)%>">
+                <input type="text" hidden id="platinum-price" value="<%=priceData.prices.platinum%>">
+                <input type="text" hidden id="business-price" value="<%=priceData.prices.business%>">
+                <input type="text" hidden id="economy-price" value="<%=priceData.prices.economy%>">
+                <input type="text" hidden id="after-discount-platinum-price" value="<%=priceData.afterDiscount.platinum%>">
+                <input type="text" hidden id="after-discount-business-price" value="<%=priceData.afterDiscount.business%>">
+                <input type="text" hidden id="after-discount-economy-price" value="<%=priceData.afterDiscount.economy%>">
+               
             </div>
 
 
             <div class="left-col">
                 <!-- <img src="images/book-img.svg" alt=""> -->
                 <!-- <h1>This part contains available sheets details and passport deatails</h1> -->
+                <div class="title">
+
+                    <h3>select sheet(s) and class</h3>
+                    
+                </div>
                 <%- include('\sample_seats.ejs',{msg}); %>
             </div>
 

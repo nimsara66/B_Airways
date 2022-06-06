@@ -15,66 +15,34 @@ class Aircraft{
         this.aircraft_id = aircraft_id;
     }
 
-    static getAircraftModelIdUsingAircraftId(aircraft_id){
+    /*
+        Returns aircraft seat formation data of this arcraft.
+        Return Values
+            seatData        Object          All data about seats (Not including booking data)
+    */
+    getAircraftSeatData(){
         return new Promise(async (resolve, reject)=>{
             try{
-                let [rows, cols] = await db.query(
-                    'SELECT model_id from Aircraft where aircraft_id=? LIMIT 1',
-                    [aircraft_id]
+                let [rows, _] = await db.query(
+                    'SELECT '+ 
+                    'economy_seat_capacity,' + 
+                    'business_seat_capacity,' + 
+                    'platinum_seat_capacity,' + 
+                    'economy_seats_per_row,' + 
+                    'business_seats_per_row,' + 
+                    'platinum_seats_per_row, ' +  
+                    'economy_seat_capacity/economy_seats_per_row AS economy_seats_num_rows, '  +   
+                    'business_seat_capacity/business_seats_per_row AS business_seats_num_rows, '  + 
+                    'platinum_seat_capacity/platinum_seats_per_row AS platinum_seats_num_rows, '  +  
+                    'economy_seat_capacity+business_seat_capacity+platinum_seat_capacity AS total_num ' +              
+                    'from Aircraft INNER JOIN Aircraft_Model USING(model_id) WHERE aircraft_id=? LIMIT 1',
+                    [this.aircraft_id]
                 )
-                if(rows.length){
-                    return resolve(rows[0].model_id)
+                if(rows.length>0){
+                    return resolve(rows[0])
                 }else{
                     return resolve(false)
                 }
-            } catch(e){return reject(e)}
-        })        
-    }
-
-
-    static getUnavailableSeatsForAircraft(aircraft_id){
-        return new Promise(async (resolve, reject)=>{
-            try{
-                let [rows, cols] = await db.query(
-                    'SELECT seat_id from Seat_Booking where state=? and aircraft_id=?',
-                    ['unavailable', aircraft_id]
-                )
-                let seats = []
-                rows.forEach(element => {
-                    seats.push(element.seat_id)
-                });
-                resolve(seats)
-            } catch(e){return reject(e)}
-        })         
-    }
-
-
-    static getOccupiedSeatsForAircraft(aircraft_id){  
-        return new Promise(async (resolve, reject)=>{
-            const func = async ()=>{
-                let [rows, cols] = await db.query(
-                    'SELECT seat_id from Seat_Booking where state=? and aircraft_id=?',
-                    ['occupied', aircraft_id]
-                )
-                let seats = []
-                rows.forEach(element => {
-                    seats.push(element.seat_id)
-                });
-                resolve(seats)
-            }
-            try{
-                func();
-            } catch(e){return reject(e)}
-        })         
-    }
-
-
-    static getUnavailableAndOccupiedSeatsForAircraft(aircraft_id){
-        return new Promise(async (resolve, reject)=>{
-            try{               
-               let occupied_seats = await Aircraft.getOccupiedSeatsForAircraft(aircraft_id)
-                let unavailable_seats = await Aircraft.getUnavailableSeatsForAircraft(aircraft_id)
-                resolve(occupied_seats.concat(unavailable_seats))
             } catch(e){return reject(e)}
         })         
     }

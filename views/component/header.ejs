@@ -9,20 +9,29 @@
 
     <a href="#" class="logo"> <span style="color: rgb(60, 226, 140); font-weight: bold;">B</span>AIRWAYS</a>
 
+    
+
     <nav class="navbar">
         <a href="/">home</a>
         <!-- <a href="/book">book</a> -->
-        <a href="/schedule">schedule</a>
-        <a href="#services">services</a>
 
-        <a href="#contact">contact</a>
+        <% if(user && user.user_type=='staff'){ %> 
+            <a href="/staff/edit_schedule">editSchedule</a>
+            <a href="/staff/edit_airplanes">editAirplanes</a>
+        <% } else{ %> 
+            <a href="/schedule">schedule</a>
+            <a href="#services">services</a>
+    
+            <a href="#contact">contact</a>
+
+        <% } %> 
     </nav>
 
 
     <div class="icons">
       
-        <% if(user) {%>
-           <a href=""><i class="fas fa-sign-out-alt" style="color: rgb(233, 111, 111);"></i></a>
+        <% if( user) {%>
+           <a href="/auth/logout"><i class="fas fa-sign-out-alt" style="color: rgb(233, 111, 111);"></i></a>
         <% }else{ %> 
             <a href="/auth/login"><i class="fas fa-user" id="login-btn"></i></a>
         <% } %> 

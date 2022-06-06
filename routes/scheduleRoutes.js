@@ -5,6 +5,11 @@ const {
     home
 } = require('../controllers/scheduleController')
 
-router.get('/',home)
+
+router.get('/', function (req, res, next) {
+    let user=req.user;
+    res.render('schedule' , { title: 'Express' ,user:user});
+})
+
 
 module.exports = router;
