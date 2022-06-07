@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/stylesheets/login.css">
+    <title>Create Schedule</title>
+</head>
+
+<body>
+    <%- include('../component/header.ejs'); %>
+
+
+
+
+    <div class="login-form-container active">
+        <div class="img-container">
+            <img src="/images/EU.jpg" id="video-slider"></img>
+        </div>
+
+        <i class="fas fa-times" id="form-close"></i>
+
+        <form action="/schedule/create/<%=route_id%>" method="post">
+            <h3>Create Schedule</h3>
+            Aircraft Id
+            <select name="aircraft_id">
+                <%aircrafts.forEach(aircraft=>{%>
+                    <option value="<%=aircraft.aircraft_id%>"><%=aircraft.aircraft_id%></option>
+                <%})%>
+            </select>
+            <input type="date" class="box" name="departure_date" placeholder="Gender">
+            <input type="time" class="box" name="departure_time" placeholder="Contact Number">
+            <input type="submit" class="btn" value="Create">
+
+            <% if(msg) %>
+                <p>
+                    <%-msg%>
+                </p>
+        </form>
+
+    </div>
+
+</body>
+
+</html>

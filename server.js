@@ -40,6 +40,9 @@ app.use('/staff', staffRoutes);
 const adminRoutes = require('./routes/adminRoutes')
 app.use('/admin', adminRoutes);
 
+const routeRoutes = require('./routes/routeRoutes')
+app.use('/route', routeRoutes);
+
 const scheduleRoutes = require('./routes/scheduleRoutes')
 app.use('/schedule', scheduleRoutes);
 

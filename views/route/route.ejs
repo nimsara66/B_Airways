@@ -1,0 +1,72 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Routes</title>
+
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+
+    <!-- font awesome cdn link  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+    <!-- custom css file link  -->
+    <link rel="stylesheet" href="stylesheets/schedule.css">
+
+    <!-- boostrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+</head>
+<body>
+      <!-- header section starts  -->
+
+      <%- include('../component/header.ejs',{user}); %>
+
+      <!-- header section ends -->
+
+     
+      
+
+    <section class="book" id="book">
+
+        <h1 class="heading"> <span>Routes</span> </h1>
+
+  
+        <div>
+            <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th scope="col">Orogin</th>
+                    <th scope="col">Destination</th>
+                    <th scope="col">Duration</th>
+                    <th scope="col">Selection</th>
+                    <th scope="col"></th>
+                  </tr>
+                </thead>
+                <tbody>
+
+
+                  <% for (let i=0;i<routes.length;i++){ %>
+                    <tr>
+                      <td><%= routes[i].origin %></td>
+                      <td><%= routes[i].destination %></td>
+                      <form action="/schedule/create/<%=routes[i].route_id%>">
+                        <td><%= routes[i].duration%> Hours</td>
+                        <td><button class="btn">Create Schedule</button></td>  
+                      </form>
+                    </tr>
+                  <% } %>
+
+
+                </tbody>
+              </table>
+
+        </div>
+
+    </section>
+      
+    
+</body>
+</html>

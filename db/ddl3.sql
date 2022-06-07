@@ -1,10 +1,10 @@
 create table Traveller_Class(
-    traveller_class_id      varchar(10) primary key,
+    traveller_class_id      int(10) primary key,
     traveller_class_name    varchar(15) not null
 );
 
 create table Aircraft_Model(
-    model_id                    varchar(10) primary key,
+    model_id                    int(10) primary key,
     model_name                  varchar(10) not null,
     variant                     varchar(10) not null,
     economy_seat_capacity       int(5),
@@ -17,24 +17,25 @@ create table Aircraft_Model(
 );
 
 create table Location(
-    location_id             varchar(10) auto_increment primary key,
-    parent_location_id      varchar(10),
-    name                    varchar(30),
+    location_id             int(10) auto_increment primary key,
+    parent_location_id      int(10),
+    location_name                    varchar(30),
     foreign key     (parent_location_id)
         references Location(location_id)
 );
 
 create table Airport(
-    airport_id      varchar(10) primary key,
-    location_id     varchar(10),
+    airport_id      int(10) auto_increment primary key,
+    airport_name    varchar(20) not null,
+    location_id     int(10),
     foreign key     (location_id)
         references Location(location_id)
 );
 
 create table Route(
-    route_id        varchar(10) auto_increment primary key,
-    origin          varchar(10) not null,
-    destination     varchar(10) not null,
+    route_id        int(10) auto_increment primary key,
+    origin          int(10) not null,
+    destination     int(10) not null,
     duration        varchar(10),
     foreign key     (origin)
         references Airport(airport_id),
@@ -43,9 +44,9 @@ create table Route(
 );
 
 create table Aircraft(
-    aircraft_id         varchar(10) primary key,
-    model_id            varchar(10),
-    airport_id          varchar(10),
+    aircraft_id         int(10) primary key,
+    model_id            int(10),
+    airport_id          int(10),
     aircraft_state      enum('active', 'inactive', 'depricated'),
     foreign key     (model_id)
         references Aircraft_Model(model_id),
@@ -54,9 +55,9 @@ create table Aircraft(
 );
 
 create table Aircraft_Seat(
-    aircraft_id             varchar(10),
-    seat_id                 varchar(10),
-    traveller_class_id      varchar(10) not null,
+    aircraft_id             int(10),
+    seat_id                 int(10),
+    traveller_class_id      int(10) not null,
     primary key     (aircraft_id, seat_id),
     foreign key     (traveller_class_id)
         references  Traveller_Class(traveller_class_id)
@@ -64,13 +65,14 @@ create table Aircraft_Seat(
 
 create table Flight_Schedule(
     schedule_id         int(10) auto_increment primary key,
-    route_id            varchar(10) not null,
-    aircraft_id         varchar(10) not null,
+    route_id            int(10) not null,
+    aircraft_id         int(10) not null,
     departure_date      date not null,
     departure_time      time not null,
     arrival_date        date not null,
     arrival_time        time not null,
-    flight_state        enum('active', 'delayed', 'cancelled'),
+    flight_state        enum('active', 'closed' ,'cancelled') default 'active',
+    flight_delay        double default 0,
     foreign key         (route_id)
         references  Route(route_id),
     foreign key         (aircraft_id)
@@ -96,8 +98,8 @@ create table Seat_Booking(
     booking_id          int(10) auto_increment primary key,
     customer_id         int(10),
     schedule_id         int(10) not null,
-    seat_id             varchar(10) not null,
-    aircraft_id         varchar(10) not null,
+    seat_id             int(10) not null,
+    aircraft_id         int(10) not null,
     state               enum('available', 'occupied', 'unavailable') not null,
     booking_date        date,
     foreign key         (aircraft_id, seat_id)

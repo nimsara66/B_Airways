@@ -48,6 +48,28 @@ class Aircraft{
     }
 
 
+    /*
+        Returns all aircrafts.
+        Return Values
+            Object          Containing all aircraft data
+    */
+    static getAllAircrafts(){
+        return new Promise(async (resolve, reject)=>{
+            try{
+                let [rows, _] = await db.query(
+                    'SELECT * from Aircraft'
+                )
+                if(rows.length){
+                    return resolve(rows)
+                }else{
+                    return resolve(false)
+                }
+            } catch(e){return reject(e)}
+        })        
+    }
+
+
+
 }
 
 module.exports = Aircraft;

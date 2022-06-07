@@ -12,7 +12,7 @@ class FlightSchedule{
         Return Values
             Object          Containing all scheduling data
     */
-    getScheduleData(schedule_id){
+    getScheduleData(){
         return new Promise(async (resolve, reject)=>{
             try{
                 let [rows, _] = await db.query(
@@ -89,6 +89,7 @@ class FlightSchedule{
                 }
             } catch(e){return reject(e)}
         })       
+    }
 
 
     /*
@@ -139,6 +140,27 @@ class FlightSchedule{
         })         
 
     }
+
+
+    static create(schedule_data) {
+        if(schedule_data){
+            console.log(schedule_data)
+            return db.query(
+                'INSERT INTO Flight_Schedule (route_id, aircraft_id,departure_date,departure_time,arrival_date,arrival_time) VALUES(?,?,?,?,?,?)',
+                [
+                    schedule_data.route_id,
+                    schedule_data.aircraft_id,
+                    schedule_data.departure_date,
+                    schedule_data.departure_time,
+                    schedule_data.arrival_date,
+                    schedule_data.arrival_time
+                ]
+            )
+        }else{
+            return false
+        }
+    }
+
   
 }
 
