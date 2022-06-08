@@ -1,5 +1,7 @@
-const { query } = require('express');
+
+const { promiseImpl } = require('ejs');
 const db = require('../db/connect')
+const Aircraft = require('./Aircraft')
 
 class FlightSchedule{
 
@@ -22,9 +24,12 @@ class FlightSchedule{
                     'departure_time, ' +     
                     'arrival_date, ' +     
                     'arrival_time, ' +    
-                    'origin, ' +
-                    'destination ' +  
-                    'from Flight_Schedule INNER JOIN Route USING(route_id) WHERE schedule_id=? LIMIT 1',
+                    'originAirport.airport_name as origin, ' +
+                    'destinationAirport.airport_name as destination ' +  
+                    'from Flight_Schedule INNER JOIN Route USING(route_id) ' +
+                    'INNER JOIN Airport as originAirport on originAirport.airport_id=Route.origin ' + 
+                    'INNER JOIN Airport as destinationAirport on destinationAirport.airport_id =Route.destination ' + 
+                    'WHERE schedule_id=? LIMIT 1',
                     [this.schedule_id]
                 )
                 if(rows.length){
@@ -46,7 +51,7 @@ class FlightSchedule{
             try{
                 const today_date = Date.now();
                 let [rows, cols] = await db.query(
-                    `SELECT origin_l.name as origin,destination_l.name as destination, f.departure_date as date,f.departure_time as time FROM flight_schedule as f 
+                    `SELECT origin_l.name as origin,destination_l.name as destination, f.departure_date as date,f.departure_time as time FROM Flight_Schedule as f 
                     left outer join route as r on f.route_id = r.route_id
                     left outer join airport as origin_a on origin_a.airport_id = r.origin
                     left outer join airport as destination_a on destination_a.airport_id = r.destination
@@ -160,6 +165,20 @@ class FlightSchedule{
             return false
         }
     }
+
+
+    createSeatBookings(){
+        return new Promise(async (resolve, reject)=>{
+            try{
+                const data = await this.getScheduleData()
+                const aircraft = new Aircraft(data.aircraft_id)
+                return resolve(aircraft.createSeatBookings(this.schedule_id))    
+            }catch(err){
+                return reject(err)
+            }    
+        })
+    }
+
 
   
 }

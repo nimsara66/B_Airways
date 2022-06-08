@@ -39,7 +39,58 @@
                     <%-msg%>
                 </p>
         </form>
+        <div class="row">
+            
+                <table class="table table-hover">
+                    <thead>
+                      <tr>
+                        <th scope="col">Aircraft Id</th>
+                        <th scope="col">Aircraft Model Name</th>
+                        <th scope="col">Economic Seat Capacity</th>
+                        <th scope="col">Business Seat Capacity</th>
+                        <th scope="col">Platinum Seat Capacity</th>
+                        <th scope="col">Economy Seats Per row</th>
+                        <th scope="col">Business Seats Per row</th>
+                        <th scope="col">Platinum Seats Per row</th>
+                        <th scope="col">Max Weight</th>
+                        <th scope="col">State</th>
+                      </tr>
+                    </thead>
+                    <tbody>
 
+
+                      <% for (let i=0;i<aircrafts.length;i++){ %>
+                        <tr>
+                          <td><%= aircrafts[i].aircraft_id %></td>
+                          <td><%= aircrafts[i].model_name %></td>
+                          <td><%= aircrafts[i].economy_seat_capacity %></td>
+                          <td><%= aircrafts[i].business_seat_capacity %></td>
+                          <td><%= aircrafts[i].platinum_seat_capacity %></td>
+                          <td><%= aircrafts[i].economy_seats_per_row %></td>
+                          <td><%= aircrafts[i].business_seats_per_row %></td>
+                          <td><%= aircrafts[i].platinum_seats_per_row %></td>
+                          <td><%= aircrafts[i].max_weight %></td>
+                          <td><%= aircrafts[i].aircraft_state %></td>
+                        </tr>
+                      <% } %>
+
+
+                    </tbody>
+                  </table>
+
+                    <!-- <input type="submit" class="btn" value="book now"> -->
+                
+
+            
+
+            <!-- <div class="left-col"> -->
+                <!-- <img src="images/book-img.svg" alt=""> -->
+                <!-- <h1>This part contains available sheets details and passport deatails</h1> -->
+            <!-- </div> -->
+
+    
+
+        </div>
     </div>
 
 </body>

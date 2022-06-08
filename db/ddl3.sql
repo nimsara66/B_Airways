@@ -100,7 +100,7 @@ create table Seat_Booking(
     schedule_id         int(10) not null,
     seat_id             int(10) not null,
     aircraft_id         int(10) not null,
-    state               enum('available', 'occupied', 'unavailable') not null,
+    state               enum('available', 'occupied', 'unavailable') not null default 'available',
     booking_date        date,
     foreign key         (aircraft_id, seat_id)
         references Aircraft_Seat(aircraft_id, seat_id),
@@ -174,3 +174,14 @@ create table Admin(
     primary key (admin_id)
 );
 
+create table Seat_Price(
+    route_id             int(10),
+    traveller_class_id      varchar(10),
+    price                    numeric(10, 2),
+    CONSTRAINT PK_seat PRIMARY KEY (route_id,traveller_class_id),
+    foreign key     (route_id)
+        references Route(route_id),
+    foreign key     (traveller_class_id)
+        references Traveller_Class(traveller_class_id)
+    
+);

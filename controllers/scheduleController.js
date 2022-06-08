@@ -16,7 +16,6 @@ const getCreate = async (req,res,next)=>{
     let route_id = req.params.route_id;
     try{
         let aircrafts = await Aircraft.getAllAircrafts()
-        console.log(aircrafts)
         res.render('schedule/create', {user,msg, route_id, aircrafts})
     }catch(err){
         if(err){
@@ -28,16 +27,23 @@ const getCreate = async (req,res,next)=>{
 
 const create = async (req,res,next)=>{
     let user = req.user;
-    console.log(req.body.aircraft_id)
     try{
-        await FlightSchedule.create({
+        let aircraft_id = req.body.aircraft_id
+        let [result, _] = await FlightSchedule.create({
             route_id:req.params.route_id,
-            aircraft_id:req.body.aircraft_id,
+            aircraft_id,
             departure_date:req.body.departure_date,
             departure_time:req.body.departure_time,
             arrival_date:req.body.departure_date,
             arrival_time:req.body.departure_time
         })
+        if(result.insertId){
+            let flightSchedule = new FlightSchedule(result.insertId)
+            await flightSchedule.createSeatBookings()
+            req.session.msg = "Schedule created successfully."
+        }else{
+            req.session.msg = "Schedule creating failed. Please try again."
+        }
         res.redirect('/schedule/create/'+req.params.route_id)
     }catch(err){
         if(err) next(err)

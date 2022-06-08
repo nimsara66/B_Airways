@@ -9,6 +9,16 @@ class SeatBooking{
 
 
     /*
+        Create an available seat booking for given booking data.
+    */
+    static createSeatBooking(schedule_id, aircraft_id, seat_id){
+        return db.query("INSERT INTO Seat_Booking (schedule_id,seat_id,aircraft_id) VALUES (?,?,?)",
+            [schedule_id,seat_id,aircraft_id]
+        )
+    }
+
+
+    /*
         Books this seat booking for given customer_id if it is available. If not booking falis.
         Return Value
             If booking success,     true    boolean
@@ -19,7 +29,7 @@ class SeatBooking{
             try{
                 let [rows, cols] = await db.query(
                     'UPDATE Seat_Booking SET customer_id=?, booking_date=?, state=? WHERE booking_id=? and state=?',
-                    [customer_id, new Date().toISOString(), "occupied", this.booking_id, "available"]
+                    [customer_id, new Date(), "occupied", this.booking_id, "available"]
                 )
                 if(rows.affectedRows){
                     resolve(true)

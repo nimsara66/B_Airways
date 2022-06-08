@@ -1,6 +1,16 @@
 START TRANSACTION;
 
-insert into location (location_id, parent_location_id, location_name) VALUES
+INSERT INTO Traveller_Class VALUES
+(1, 'platinum'),
+(2, 'business'),
+(3, 'economy');
+
+INSERT INTO Aircraft_Model VALUES
+(1, 'Model-1', 'Variant-3', 20, 10, 6, 4, 5, 3, 500),
+(2, 'Model-2', 'Variant-2', 40, 20, 12, 8, 10, 6, 800),
+(3, 'Model-3', 'Variant-1', 80, 40, 24, 16, 20, 12, 1600);
+
+insert into Location (location_id, parent_location_id, location_name) VALUES
 (1, null,'Indonesia'),
 (2, null,'Sri Lanka'),
 (3, null,'India'),
@@ -24,7 +34,7 @@ insert into location (location_id, parent_location_id, location_name) VALUES
 (21, 20, 'Chennai');
 
 
-insert into airport VALUES
+insert into Airport VALUES
 (1,'CGK', 7),
 (2,'DPS', 9),
 (3,'BIA', 10),
@@ -37,13 +47,73 @@ insert into airport VALUES
 (10,'SIN', 19);
 
 
-insert into route VALUES
+insert into Route VALUES
 (1,1,2,'2'),
 (2,8,4,'3'),
 (3,9,6,'2'),
 (4,3,7,'4'),
 (5,6,10,'1');
 
+INSERT INTO Aircraft VALUES
+(1, 1, 1, 'inactive'),
+(2, 2, 2, 'inactive'),
+(3, 3, 3, 'inactive'),
+(4, 2, 4, 'inactive'),
+(5, 1, 1, 'inactive');
+
+INSERT INTO Aircraft_Seat VALUES
+(1, 1, 3),
+(1, 2, 3),
+(1, 3, 3),
+(1, 4, 3),
+(1, 5, 3),
+(1, 6, 3),
+(1, 7, 3),
+(1, 8, 3),
+(1, 9, 3),
+(1, 10, 3),
+(1, 11, 3),
+(1, 12, 3),
+(1, 13, 3),
+(1, 14, 3),
+(1, 15, 3),
+(1, 16, 3),
+(1, 17, 3),
+(1, 18, 3),
+(1, 19, 3),
+(1, 20, 3),
+(1, 21, 2),
+(1, 22, 2),
+(1, 23, 2),
+(1, 24, 2),
+(1, 25, 2),
+(1, 26, 2),
+(1, 27, 2),
+(1, 28, 2),
+(1, 29, 2),
+(1, 30, 2),
+(1, 31, 1),
+(1, 32, 1),
+(1, 33, 1),
+(1, 34, 1),
+(1, 35, 1),
+(1, 36, 1);
+
+INSERT INTO Discount VALUES
+('registered_customer', 5),
+('guest_customer', 0);
+
+INSERT INTO Customer VALUES
+(1, 'registered_customer');
 
 
-COMMIT;
+INSERT INTO Seat_Price VALUES
+(1,1,500),
+(1,2,600),
+(1,3,700),
+(2,1,400),
+(2,2,500),
+(2,3,600);
+
+
+commit;

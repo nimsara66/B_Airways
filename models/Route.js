@@ -15,7 +15,7 @@ class Route{
         return new Promise(async (resolve, reject)=>{
             try{
                 let [rows, _] = await db.query(
-                    'SELECT route.route_id,duration,airport.airport_name origin, airport2.airport_name destination FROM route left outer join airport on route.origin = airport.airport_id left outer join airport as airport2 on airport2.airport_id=route.destination'
+                    'SELECT Route.route_id,duration,Airport.airport_name origin, airport2.airport_name destination FROM Route left outer join Airport on Route.origin = Airport.airport_id left outer join Airport as airport2 on airport2.airport_id=Route.destination'
                 )
                 if(rows.length){
                     return resolve(rows)
