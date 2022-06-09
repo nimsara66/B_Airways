@@ -6,9 +6,9 @@ INSERT INTO Traveller_Class VALUES
 (3, 'economy');
 
 INSERT INTO Aircraft_Model VALUES
-(1, 'Model-1', 'Variant-3', 20, 10, 6, 4, 5, 3, 500),
-(2, 'Model-2', 'Variant-2', 40, 20, 12, 8, 10, 6, 800),
-(3, 'Model-3', 'Variant-1', 80, 40, 24, 16, 20, 12, 1600);
+(1, 'Boeing', '737', 20, 10, 6, 4, 5, 3, 500),
+(2, 'Boeing', '757', 40, 20, 12, 8, 10, 6, 800),
+(3, 'Airbus', 'A380', 80, 40, 24, 16, 20, 12, 1600);
 
 insert into Location (location_id, parent_location_id, location_name) VALUES
 (1, null,'Indonesia'),
@@ -55,11 +55,14 @@ insert into Route VALUES
 (5,6,10,'1');
 
 INSERT INTO Aircraft VALUES
-(1, 1, 1, 'inactive'),
-(2, 2, 2, 'inactive'),
-(3, 3, 3, 'inactive'),
-(4, 2, 4, 'inactive'),
-(5, 1, 1, 'inactive');
+(1,1,1,'active'),
+(2,1,1,'active'),
+(3,1,2,'active'),
+(4,2,1,'active'),
+(5,2,3,'active'),
+(6,2,1,'active'),
+(7,2,2,'active'),
+(8,3,3,'active');
 
 INSERT INTO Aircraft_Seat VALUES
 (1, 1, 3),

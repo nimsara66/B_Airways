@@ -176,7 +176,7 @@ create table Admin(
 
 create table Seat_Price(
     route_id             int(10),
-    traveller_class_id      varchar(10),
+    traveller_class_id      int(10),
     price                    numeric(10, 2),
     CONSTRAINT PK_seat PRIMARY KEY (route_id,traveller_class_id),
     foreign key     (route_id)
