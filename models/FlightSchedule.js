@@ -51,7 +51,7 @@ class FlightSchedule{
             try{
                 const today_date = Date.now();
                 let [rows, cols] = await db.query(
-                    `SELECT origin_l.name as origin,destination_l.name as destination, f.departure_date as date,f.departure_time as time FROM Flight_Schedule as f 
+                    `SELECT origin_l.location_name as origin,destination_l.location_name as destination, f.departure_date as date,f.departure_time as time FROM Flight_Schedule as f 
                     left outer join route as r on f.route_id = r.route_id
                     left outer join airport as origin_a on origin_a.airport_id = r.origin
                     left outer join airport as destination_a on destination_a.airport_id = r.destination
