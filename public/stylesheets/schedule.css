@@ -28,6 +28,12 @@ table .btn{
   padding: 0;
 }
 
+table .schedule {
+  height: auto;
+  width: auto;
+  padding: 5px;
+}
+
 
 
 
