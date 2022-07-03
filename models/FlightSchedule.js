@@ -130,17 +130,18 @@ class FlightSchedule{
                 let availableSeats = await this.getSeatBookingHelper('available');
                 let occupiedSeats = await this.getSeatBookingHelper('occupied');
                 let unavailableSeats = await this.getSeatBookingHelper('unavailable');
-                let bookedSeatsByThisCustomer = []
+                let bookedSeatByThisCustomer = 0;
+                console.log(customer_id)
                 if(customer_id){
                     let [rows, _] = await db.query(
-                        'SELECT seat_id from Seat_Booking where customer_id=? and schedule_id=?',
+                        'SELECT seat_id from Seat_Booking where customer_id=? and schedule_id=? LIMIT 1',
                         [customer_id, this.schedule_id]
                     ) 
-                    rows.forEach(element => {
-                        bookedSeatsByThisCustomer.push(element.seat_id)
-                    }); 
+                    console.log(rows)
+                    if(rows.length>0)   bookedSeatByThisCustomer = rows[0].seat_id
+                    else    bookedSeatByThisCustomer = 0
                 }
-                return resolve({availableSeats,occupiedSeats,unavailableSeats,bookedSeatsByThisCustomer});
+                return resolve({availableSeats,occupiedSeats,unavailableSeats,bookedSeatByThisCustomer});
             } catch(e){return reject(e)}
         })         
 

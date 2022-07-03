@@ -28,6 +28,7 @@ class Aircraft{
                     'economy_seat_capacity,' + 
                     'business_seat_capacity,' + 
                     'platinum_seat_capacity,' + 
+                    'economy_seat_capacity+business_seat_capacity+platinum_seat_capacity AS total_seat_capacity, '+
                     'economy_seats_per_row,' + 
                     'business_seats_per_row,' + 
                     'platinum_seats_per_row, ' +  

@@ -111,10 +111,6 @@
                         <input type="text" placeholder="place name" readonly value="<%=flightScheduleData.destination%>">
                     </div>
                     <div class="inputBox">
-                        <h3>how many booked by yu</h3>
-                        <input type="text" id="num-booked-seats" name="num_seats" class="book-input" value="0" readonly >
-                    </div>
-                    <div class="inputBox">
                         <h3>arrivals</h3>
                         <input type="text" value="<%=flightScheduleData.arrival_date%>" readonly >
                     </div>
@@ -137,7 +133,7 @@
                     <div hidden>
                         <input type="text" name="schedule_id" class="form-control book-input" value="<%=flightScheduleData.schedule_id%>" readonly>
                         <input type="text" name="aircraft_id" class="form-control book-input" value="<%=flightScheduleData.aircraft_id%>" readonly>
-                        <input type="text" id="selected-seats" name="selected_seats" class="form-control book-input" value="[]" readonly >
+                        <input type="text" id="selected-seat" name="selected_seat" class="form-control book-input" value="0" readonly >
                     </div>
                 <div class="row">
                     <div class="">
@@ -158,14 +154,15 @@
 
                 <input type="text" hidden id="unavailable-seats" value="<%=JSON.stringify(seatBookingData.unavailableSeats)%>">
                 <input type="text" hidden id="occupied-seats" value="<%=JSON.stringify(seatBookingData.occupiedSeats)%>">
-                <input type="text" hidden id="already-booked-seats" value="<%=JSON.stringify(seatBookingData.bookedSeatsByThisCustomer)%>">
+                <input type="text" hidden id="already-booked-seat" value="<%=seatBookingData.bookedSeatByThisCustomer%>">
+                <input type="text" hidden id="total-seat-capacity" value="<%=seatData.total_seat_capacity%>">
                 <input type="text" hidden id="platinum-price" value="<%=priceData.prices.platinum%>">
                 <input type="text" hidden id="business-price" value="<%=priceData.prices.business%>">
                 <input type="text" hidden id="economy-price" value="<%=priceData.prices.economy%>">
                 <input type="text" hidden id="after-discount-platinum-price" value="<%=priceData.afterDiscount.platinum%>">
                 <input type="text" hidden id="after-discount-business-price" value="<%=priceData.afterDiscount.business%>">
                 <input type="text" hidden id="after-discount-economy-price" value="<%=priceData.afterDiscount.economy%>">
-               
+                <input type="text" id="front-msg" value="">
             </div>
 
 
@@ -186,7 +183,7 @@
         </div>
 
     </section>
-    <script src="/javascripts/book/sample_seats.js"></script>
+    <script src="/javascripts/book/sample_seats2.js"></script>
 </body>
 
 </html>

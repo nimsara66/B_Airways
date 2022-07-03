@@ -299,7 +299,6 @@ CREATE TRIGGER ScheduleInsertTrigger AFTER INSERT ON Flight_Schedule
 DELIMITER ;
 
 
-
 START TRANSACTION;
 
 INSERT INTO Traveller_Class VALUES
