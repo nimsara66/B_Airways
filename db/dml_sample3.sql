@@ -71,5 +71,15 @@ INSERT INTO Seat_Price VALUES
 (2,2,500),
 (2,3,600);
 
+INSERT INTO Aircraft VALUES
+(1,1,1,'active'),
+(2,1,1,'active'),
+(3,1,2,'active'),
+(4,2,1,'active'),
+(5,2,3,'active'),
+(6,2,1,'active'),
+(7,2,2,'active'),
+(8,3,3,'active');
+
 
 commit;

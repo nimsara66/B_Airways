@@ -11,57 +11,67 @@ BEGIN
     DECLARE economy_seat_capacity INT;
     DECLARE business_seat_capacity INT;
     DECLARE platinum_seat_capacity INT;
-    DECLARE seat_count INT Default 0;
+    DECLARE seat_count INT Default 1;
     
     -- get modal id
-	SELECT aircraft.model_id 
+	SELECT Aircraft.model_id 
     INTO model_id
-    FROM aircraft
-    WHERE aircraft.aircraft_id = aircraft_id;    
+    FROM Aircraft
+    WHERE Aircraft.aircraft_id = aircraft_id;    
 
     -- get seat capacity
-    SELECT aircraft_model.economy_seat_capacity, aircraft_model.business_seat_capacity, aircraft_model.platinum_seat_capacity
+    SELECT Aircraft_Model.economy_seat_capacity, Aircraft_Model.business_seat_capacity, Aircraft_Model.platinum_seat_capacity
     INTO economy_seat_capacity, business_seat_capacity, platinum_seat_capacity
-    FROM aircraft_model
-    WHERE aircraft_model.model_id = model_id;
+    FROM Aircraft_Model
+    WHERE Aircraft_Model.model_id = model_id;
 
     -- TODO: check by aircraft_state
     
     -- Add platinum_seats
     simple_loop: LOOP
-     IF seat_count >= platinum_seat_capacity THEN
+     IF seat_count > platinum_seat_capacity THEN
         LEAVE simple_loop;
      END IF;
      -- add to seats
-     INSERT INTO aircraft_seat VALUES (
+     INSERT INTO Aircraft_Seat VALUES (
         aircraft_id, seat_count, 1
      );
      SET seat_count=seat_count+1;
    END LOOP simple_loop;
    
   simple_loop: LOOP
-     IF seat_count >= business_seat_capacity+platinum_seat_capacity THEN
+     IF seat_count > business_seat_capacity+platinum_seat_capacity THEN
         LEAVE simple_loop;
      END IF;
      -- add to seats
-     INSERT INTO aircraft_seat VALUES (
+     INSERT INTO Aircraft_Seat VALUES (
         aircraft_id, seat_count, 2
      );
      SET seat_count=seat_count+1;
    END LOOP simple_loop;
    
   simple_loop: LOOP
-     IF seat_count >= economy_seat_capacity+business_seat_capacity+platinum_seat_capacity THEN
+     IF seat_count > economy_seat_capacity+business_seat_capacity+platinum_seat_capacity THEN
         LEAVE simple_loop;
      END IF;
      -- add to seats
-	INSERT INTO aircraft_seat VALUES (
+	INSERT INTO Aircraft_Seat VALUES (
         aircraft_id, seat_count, 2
      );
      SET seat_count=seat_count+1;
    END LOOP simple_loop;
 END$$
 
+DELIMITER ;
+
+
+DROP TRIGGER IF EXISTS AircraftInsertTrigger;
+DELIMITER $$
+CREATE TRIGGER AircraftInsertTrigger AFTER INSERT ON Aircraft
+	FOR EACH ROW
+	BEGIN
+		CALL addAircraftSeats(new.aircraft_id);
+	END$$
 DELIMITER ;
 
 
