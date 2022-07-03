@@ -63,3 +63,44 @@ BEGIN
 END$$
 
 DELIMITER ;
+
+
+
+
+DROP PROCEDURE IF EXISTS CreateSeatBooking;
+DELIMITER $$
+CREATE PROCEDURE CreateSeatBooking(in schedule_id_in int)
+BEGIN    
+    
+   DECLARE total_seat_capacity INT; 
+   DECLARE aircraft_id_in INT;
+   DECLARE seat_no INT DEFAULT 1;
+    
+   SELECT aircraft_id INTO aircraft_id_in FROM Flight_Schedule WHERE schedule_id=schedule_id_in;
+    
+   SELECT economy_seat_capacity+business_seat_capacity+platinum_seat_capacity INTO total_seat_capacity
+	 FROM Aircraft_Model INNER JOIN Aircraft USING (model_id) WHERE aircraft_id=aircraft_id_in;
+	
+   WHILE seat_no <= total_seat_capacity DO 
+      INSERT INTO Seat_Booking (schedule_id,seat_id,aircraft_id) VALUES (schedule_id_in,seat_no,aircraft_id_in);
+	   SET seat_no = seat_no + 1;
+	END WHILE;
+	
+END$$
+DELIMITER ;
+
+
+
+DROP TRIGGER IF EXISTS ScheduleInsertTrigger;
+DELIMITER $$
+CREATE TRIGGER ScheduleInsertTrigger AFTER INSERT ON Flight_Schedule
+	FOR EACH ROW
+	BEGIN
+		CALL CreateSeatBooking(new.schedule_id);
+	END$$
+DELIMITER ;
+
+
+
+
+	
