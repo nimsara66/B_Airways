@@ -9,14 +9,6 @@ class AircraftSeat{
     }
 
 
-    /*
-        Create a seat booking for given aircraft_id and seat_id
-    */
-    async createSeatBooking(schedule_id){
-        return SeatBooking.createSeatBooking(schedule_id, this.aircraft_id, this.seat_id)
-    }
-
-
 }
 
 module.exports = AircraftSeat;

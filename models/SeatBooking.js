@@ -9,16 +9,6 @@ class SeatBooking{
 
 
     /*
-        Create an available seat booking for given booking data.
-    */
-    static createSeatBooking(schedule_id, aircraft_id, seat_id){
-        return db.query("INSERT INTO Seat_Booking (schedule_id,seat_id,aircraft_id) VALUES (?,?,?)",
-            [schedule_id,seat_id,aircraft_id]
-        )
-    }
-
-
-    /*
         Books this seat booking for given customer_id if it is available. If not booking falis.
         Return Value
             If booking success,     true    boolean

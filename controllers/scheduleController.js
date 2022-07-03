@@ -38,8 +38,6 @@ const create = async (req,res,next)=>{
             arrival_time:req.body.departure_time
         })
         if(result.insertId){
-            let flightSchedule = new FlightSchedule(result.insertId)
-            await flightSchedule.createSeatBookings()
             req.session.msg = "Schedule created successfully."
         }else{
             req.session.msg = "Schedule creating failed. Please try again."

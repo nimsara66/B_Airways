@@ -166,20 +166,6 @@ class FlightSchedule{
         }
     }
 
-
-    createSeatBookings(){
-        return new Promise(async (resolve, reject)=>{
-            try{
-                const data = await this.getScheduleData()
-                const aircraft = new Aircraft(data.aircraft_id)
-                return resolve(aircraft.createSeatBookings(this.schedule_id))    
-            }catch(err){
-                return reject(err)
-            }    
-        })
-    }
-
-
   
 }
 

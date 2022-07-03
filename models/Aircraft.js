@@ -69,26 +69,6 @@ class Aircraft{
     }
 
 
-    /*
-        Creats boking for given schedule id
-    */
-    async createSeatBookings(schedule_id){
-        return new Promise(async (resolve,reject)=>{
-            try{
-                let seatData = await this.getAircraftSeatData();
-                let i,j;
-                for(i=0;i<seatData.platinum_seat_capacity+seatData.business_seat_capacity+seatData.economy_seat_capacity;i++){
-                    let seat = new AircraftSeat(this.aircraft_id,i+1)
-                    let [result,_] = await seat.createSeatBooking(schedule_id);
-                }
-                return resolve(true)
-            }catch(err){
-                return reject(err)
-            }
-        })
-    }
-
-
 }
 
 module.exports = Aircraft;

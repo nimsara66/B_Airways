@@ -5,6 +5,7 @@ const { BadRequestError } = require('../errors/index')
 const registerStaff = async (req, res, next) => {
     try {
         // validate
+        /*
         const {
             email,
             password,
@@ -18,7 +19,21 @@ const registerStaff = async (req, res, next) => {
             assigned_airport,
             state
         } = await StaffSchema.validateAsync(req.body)
-        
+        */
+        const {
+            email,
+            password,
+            category,
+            first_name,
+            last_name,
+            gender,
+            contact_number,
+            birthday,
+            country,
+            assigned_airport,
+            state
+        } = req.body
+
         // check if employee exist
         const [ employees, _ ] = await Staff.findByEmail(email)
         if (employees.length>0) {
