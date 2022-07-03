@@ -77,9 +77,9 @@ DELIMITER ;
 
 
 
-DROP PROCEDURE IF EXISTS CreateSeatBooking;
+DROP PROCEDURE IF EXISTS AddSeatBooking;
 DELIMITER $$
-CREATE PROCEDURE CreateSeatBooking(in schedule_id_in int)
+CREATE PROCEDURE AddSeatBooking(in schedule_id_in int)
 BEGIN    
     
    DECLARE total_seat_capacity INT; 
@@ -106,7 +106,7 @@ DELIMITER $$
 CREATE TRIGGER ScheduleInsertTrigger AFTER INSERT ON Flight_Schedule
 	FOR EACH ROW
 	BEGIN
-		CALL CreateSeatBooking(new.schedule_id);
+		CALL AddSeatBooking(new.schedule_id);
 	END$$
 DELIMITER ;
 
