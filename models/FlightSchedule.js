@@ -52,11 +52,11 @@ class FlightSchedule{
                 const today_date = Date.now();
                 let [rows, cols] = await db.query(
                     `SELECT origin_l.location_name as origin,destination_l.location_name as destination, f.departure_date as date,f.departure_time as time FROM Flight_Schedule as f 
-                    left outer join route as r on f.route_id = r.route_id
-                    left outer join airport as origin_a on origin_a.airport_id = r.origin
-                    left outer join airport as destination_a on destination_a.airport_id = r.destination
-                    left outer join location as origin_l on origin_a.location_id = origin_l.location_id
-                    left outer join location as destination_l on destination_a.location_id = destination_l.location_id
+                    left outer join Route as r on f.Route_id = r.Route_id
+                    left outer join Airport as origin_a on origin_a.airport_id = r.origin
+                    left outer join Airport as destination_a on destination_a.airport_id = r.destination
+                    left outer join Location as origin_l on origin_a.location_id = origin_l.location_id
+                    left outer join Location as destination_l on destination_a.location_id = destination_l.location_id
                     WHERE f.departure_date>=?`,
                     // [today_date]
                     ['2022-05-10']
@@ -77,11 +77,11 @@ class FlightSchedule{
                 const today_date = Date.now();
                 let [rows, cols] = await db.query(
                     `SELECT origin_l.location_id as origin,destination_l.location_id as destination, f.departure_date as date,f.departure_time as time FROM flight_schedule as f 
-                    left outer join route as r on f.route_id = r.route_id
-                    left outer join airport as origin_a on origin_a.airport_id = r.origin
-                    left outer join airport as destination_a on destination_a.airport_id = r.destination
-                    left outer join location as origin_l on origin_a.location_id = origin_l.location_id
-                    left outer join location as destination_l on destination_a.location_id = destination_l.location_id
+                    left outer join Route as r on f.Route_id = r.Route_id
+                    left outer join Airport as origin_a on origin_a.airport_id = r.origin
+                    left outer join Airport as destination_a on destination_a.airport_id = r.destination
+                    left outer join Location as origin_l on origin_a.location_id = origin_l.location_id
+                    left outer join Location as destination_l on destination_a.location_id = destination_l.location_id
                     WHERE f.departure_date>=? and ()`,
                     [today_date,]
                     // ['2022-05-10']
