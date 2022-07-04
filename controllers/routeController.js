@@ -1,7 +1,7 @@
 const Location = require("../models/Route")
 
 const get_all_routes =async (req,res,next) => {
-    let user=false;
+    let user=req.user;
     let msg = req.session.msg
     const routes =await Location. getAllRoutes();
     console.log(routes)

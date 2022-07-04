@@ -1,6 +1,7 @@
 const Staff = require('../models/Staff')
 const StaffSchema = require('../validation/Staff')
 const { BadRequestError } = require('../errors/index')
+const { StatusCodes } = require('http-status-codes')
 
 const registerStaff = async (req, res, next) => {
     try {
@@ -64,6 +65,17 @@ const registerStaff = async (req, res, next) => {
     }
 }
 
+
+const loginStaff = (req, res, next) => {
+    req.logout()
+    res.status(StatusCodes.OK).render('login_register/staff_login', { message: null, user: req.user })
+}
+
+const loginStaffFailure = (req, res, next) => {
+    res.status(401).render('login_register/staff_login', { message: 'Invalid Credentials', user: req.user })
+}
+
+
 const logoutStaff = (req, res, next) => {
     req.logout();
     res.redirect('/')
@@ -71,5 +83,7 @@ const logoutStaff = (req, res, next) => {
 
 module.exports = {
     registerStaff,
-    logoutStaff
+    logoutStaff,
+    loginStaff,
+    loginStaffFailure
 }

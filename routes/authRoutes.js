@@ -22,7 +22,7 @@ router.post('/register', registerCustomer)
 router.get('/login', loginCustomer);
 router.post('/login', passport.authenticate('customer', {
     failureRedirect: '/auth/login-failure',
-    successRedirect: '/auth/login-success'
+    successRedirect: '/'
 }))
 
 router.get('/login-success', loginCustomerSuccess)

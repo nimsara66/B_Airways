@@ -17,13 +17,13 @@
 
     <div class="login-form-container active">
         <div class="img-container">
-            <img src="images/EU.jpg" id="video-slider"></img>
+            <img src="/images/EU.jpg" id="video-slider"></img>
         </div>
 
         <i class="fas fa-times" id="form-close"></i>
 
         <form action="/staff/register" method="post">
-            <h3>register</h3>
+            <h3>staff register</h3>
             <input type="text" class="box" name="first_name" placeholder="First Name">
             <input type="text" class="box" name="last_name" placeholder="Last Name">
             <input type="text" class="box" name="gender" placeholder="Gender">
@@ -37,9 +37,9 @@
             <input type="text" class="box" name="password" placeholder="Password">
             <input type="text" class="box" name="confirm_password" placeholder="Confirm password">            
 
-            <input type="submit" value="Register">
+            <input type="submit" class="btn" value="Register">
 
-            <p>already have an account? <a href="/auth/login">log in</a></p>
+            <p>already have an account? <a href="/staff/login">log in</a></p>
             <% if(msg)   %> <p><%-msg%></p>
         </form>
 
