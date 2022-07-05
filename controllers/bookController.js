@@ -39,6 +39,7 @@ const viewBook = async (req, res, next) => {
 
     // select frequent_discount
     let frequent_discount = 0
+    let frequent_type = undefined
 
     GOLD_MARGIN = process.env.GOLD_MARGIN? parseInt(process.env.GOLD_MARGIN) : 5
     FREQUENT_MARGIN = process.env.FREQUENT_MARGIN? parseInt(process.env.FREQUENT_MARGIN): 3
@@ -48,9 +49,11 @@ const viewBook = async (req, res, next) => {
     switch (frequency) {
       case frequency>GOLD_MARGIN:
         frequent_discount = process.env.GOLD_DISCOUNT
+        frequent_type = 'gold'
         break;
       case frequency>FREQUENT_MARGIN:
         frequent_discount = process.env.FREQUENT_DISCOUNT
+        frequent_type = 'frequent'
       default:
         break;
     }
@@ -79,7 +82,8 @@ const viewBook = async (req, res, next) => {
       msg,
       user,
       priceData,
-      frequent_discount
+      frequent_discount,
+      frequent_type
     })
   } catch (err) {
     return next(err)
