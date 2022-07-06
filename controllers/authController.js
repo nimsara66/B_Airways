@@ -21,7 +21,8 @@ const registerCustomer = async (req, res, next) => {
             province,
             city,
             birthday
-        } = await RegisteredCustomerSchema.validateAsync(req.body)
+        } = req.body
+        //await RegisteredCustomerSchema.validateAsync(req.body)
         
         // check if user exist
         const [ customers, _ ] = await RegisteredCustomer.findByEmail(email)

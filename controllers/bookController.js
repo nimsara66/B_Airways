@@ -72,18 +72,16 @@ const viewBook = async (req, res, next) => {
       (pricelist) =>
         (afterDiscount[pricelist.traveller_class_name] =
           parseFloat(pricelist.price) -
-          (parseFloat(discount) * parseFloat(pricelist.price)) / 100)
+          (parseFloat(frequent_discount) * parseFloat(pricelist.price)) / 100)
     )
-    let priceData = { prices, afterDiscount, discount }
+    let priceData = { prices, afterDiscount, frequent_discount }
     res.render('book/book', {
       flightScheduleData,
       seatData,
       seatBookingData,
       msg,
       user,
-      priceData,
-      frequent_discount,
-      frequent_type
+      priceData
     })
   } catch (err) {
     return next(err)
