@@ -11,21 +11,19 @@ class SeatBooking{
     /*
         Books this seat booking for given customer_id if it is available. If not booking falis.
         Return Value
-            If booking success,     true    boolean
-            Otherwise               false   boolean
+            If booking success,     1   int
+            Otherwise               0   int
+            If fails                -1  int
     */
-    book(customer_id){
+    static book(schedule_id, seat_id, customer_id){
         return new Promise(async (resolve, reject)=>{
             try{
-                let [rows, cols] = await db.query(
-                    'UPDATE Seat_Booking SET customer_id=?, booking_date=?, state=? WHERE booking_id=? and state=?',
-                    [customer_id, new Date(), "occupied", this.booking_id, "available"]
-                )
-                if(rows.affectedRows){
-                    resolve(true)
-                }else{
-                    resolve(false)
-                }
+                let [rows, __] = await db.query(
+                    'CALL SeatBook(?,?,?,@isBookingSuccess)',
+                    [schedule_id, seat_id, customer_id]
+                );
+                let [bookingSuccess, _ ] = await db.query('SELECT @isBookingSuccess');
+                return resolve(bookingSuccess[0]['@isBookingSuccess']);
             } catch(e){return reject(e)}            
         })
     }

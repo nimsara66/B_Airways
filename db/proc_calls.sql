@@ -113,4 +113,26 @@ DELIMITER ;
 
 
 
-	
+
+DROP PROCEDURE IF EXISTS SeatBook;
+DELIMITER $$
+CREATE PROCEDURE SeatBook(in schedule_id_in int, in seat_id_in int, in customer_id_in int, out bookingSuccess int)
+BEGIN
+   DECLARE booking_id_in int;
+   SET bookingSuccess = -1;
+   START TRANSACTION;
+    	SELECT booking_id into booking_id_in from Seat_Booking where schedule_id=schedule_id_in and seat_id=seat_id_in LIMIT 1;
+        UPDATE Seat_Booking SET customer_id=customer_id_in, booking_date=CURDATE(), state='occupied' WHERE booking_id=booking_id_in and state='available';
+        IF (ROW_COUNT()>0) THEN
+        	SET bookingSuccess = 1;
+        ELSE
+        	SET bookingSuccess = 0;
+        END IF;
+    COMMIT;
+    SELECT @bookingSuccess;
+END$$
+DELIMITER ;
+
+
+CALL SeatBook(8,5,2,@x);
+SELECT @x;

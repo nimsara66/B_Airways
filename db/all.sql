@@ -370,10 +370,6 @@ INSERT INTO Discount VALUES
 ('registered_customer', 5),
 ('guest_customer', 0);
 
-INSERT INTO Customer VALUES
-(1, 'registered_customer');
-
-
 INSERT INTO Seat_Price VALUES
 (1,1,500),
 (1,2,600),
