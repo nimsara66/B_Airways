@@ -111,9 +111,6 @@ CREATE TRIGGER ScheduleInsertTrigger AFTER INSERT ON Flight_Schedule
 DELIMITER ;
 
 
-
-
-
 DROP PROCEDURE IF EXISTS SeatBook;
 DELIMITER $$
 CREATE PROCEDURE SeatBook(in schedule_id_in int, in seat_id_in int, in customer_id_in int, out bookingSuccess int)
@@ -133,6 +130,3 @@ BEGIN
 END$$
 DELIMITER ;
 
-
-CALL SeatBook(8,5,2,@x);
-SELECT @x;
