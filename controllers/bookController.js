@@ -4,6 +4,7 @@ const Aircraft = require('../models/Aircraft')
 const SeatBooking = require('../models/SeatBooking')
 const Pricing = require('../models/Pricing')
 const RegisteredCustomer = require('../models/RegisteredCustomer')
+const { RegUserDisConstants } = require('../models/Constants')
 
 require('dotenv').config()
 
@@ -30,10 +31,19 @@ const viewBook = async (req, res, next) => {
     let seatBookingData = await flightSchedule.getSeatBookingData(customer_id)
 
     // get customer frequency
+    const [check, __] = await RegUserDisConstants()
+    var constants = check.reduce(
+      (obj, item) => ((obj[item.id] = item.value), obj),
+      {}
+    )
+
     let frequency = 0
-    const interval = process.env.INTERVAL || 30
+    const interval = constants.INTERVAL || 30
     if (req.user && req.user.user_type === 'registered_customer') {
-      const [ result, _] = await RegisteredCustomer.getFrequency(req.user.customer_id, interval)
+      const [result, __] = await RegisteredCustomer.getFrequency(
+        req.user.customer_id,
+        interval
+      )
       frequency = result[0].frequency
     }
 
@@ -41,21 +51,27 @@ const viewBook = async (req, res, next) => {
     let frequent_discount = 0
     let frequent_type = undefined
 
-    GOLD_MARGIN = process.env.GOLD_MARGIN? parseInt(process.env.GOLD_MARGIN) : 5
-    FREQUENT_MARGIN = process.env.FREQUENT_MARGIN? parseInt(process.env.FREQUENT_MARGIN): 3
-    GOLD_DISCOUNT = process.env.GOLD_DISCOUNT? parseInt(process.env.GOLD_DISCOUNT): 9
-    FREQUENT_DISCOUNT = process.env.FREQUENT_DISCOUNT? parseInt(process.env.FREQUENT_DISCOUNT): 5
-    
+    GOLD_MARGIN = constants.GOLD_MARGIN ? parseInt(constants.GOLD_MARGIN) : 5
+    FREQUENT_MARGIN = constants.FREQUENT_MARGIN
+      ? parseInt(constants.FREQUENT_MARGIN)
+      : 3
+    GOLD_DISCOUNT = constants.GOLD_DISCOUNT
+      ? parseInt(constants.GOLD_DISCOUNT)
+      : 9
+    FREQUENT_DISCOUNT = constants.FREQUENT_DISCOUNT
+      ? parseInt(constants.FREQUENT_DISCOUNT)
+      : 5
+
     switch (frequency) {
-      case frequency>GOLD_MARGIN:
-        frequent_discount = process.env.GOLD_DISCOUNT
+      case frequency > GOLD_MARGIN:
+        frequent_discount = constants.GOLD_DISCOUNT
         frequent_type = 'gold'
-        break;
-      case frequency>FREQUENT_MARGIN:
-        frequent_discount = process.env.FREQUENT_DISCOUNT
+        break
+      case frequency > FREQUENT_MARGIN:
+        frequent_discount = constants.FREQUENT_DISCOUNT
         frequent_type = 'frequent'
       default:
-        break;
+        break
     }
 
     // get ticket price with discount part
@@ -75,6 +91,7 @@ const viewBook = async (req, res, next) => {
           (parseFloat(discount) * parseFloat(pricelist.price)) / 100)
     )
     let priceData = { prices, afterDiscount, discount }
+    // console.log(frequent_discount, frequent_type)
     res.render('book/book', {
       flightScheduleData,
       seatData,
@@ -83,7 +100,7 @@ const viewBook = async (req, res, next) => {
       user,
       priceData,
       frequent_discount,
-      frequent_type
+      frequent_type,
     })
   } catch (err) {
     return next(err)
