@@ -6,7 +6,23 @@ const { StatusCodes } = require('http-status-codes')
 const registerCustomer = async (req, res, next) => {
     try {
         // validate
-        
+
+        // const {
+        //     email,
+        //     password,
+        //     first_name,
+        //     last_name,
+        //     gender,
+        //     contact_number,
+        //     passport_number,
+        //     address_line1,
+        //     address_line2,
+        //     country,
+        //     province,
+        //     city,
+        //     birthday
+        // } = await RegisteredCustomerSchema.validateAsync(req.body)
+
         const {
             email,
             password,
@@ -21,11 +37,11 @@ const registerCustomer = async (req, res, next) => {
             province,
             city,
             birthday
-        } = await RegisteredCustomerSchema.validateAsync(req.body)
-        
+        } = req.body
+
         // check if user exist
-        const [ customers, _ ] = await RegisteredCustomer.findByEmail(email)
-        if (customers.length>0) {
+        const [customers, _] = await RegisteredCustomer.findByEmail(email)
+        if (customers.length > 0) {
             throw new BadRequestError('Customer already exists')
         }
 
@@ -45,13 +61,18 @@ const registerCustomer = async (req, res, next) => {
             birthday
         )
         await registeredCustomer.create()
-        // TODO
-        res.send({ msg: 'success' })
+
+        // res.send({ msg: 'success' })
+
+        res.redirect('/auth/login')
     } catch (error) {
         if (error.isJoi) {
-            error = new BadRequestError('please provide valid values')
+            // error = new BadRequestError('please provide valid values')
+            res.redirect('/auth/register', { message: 'Invalid Credentials' })
         }
-        next(error)
+        req.session.msg = "Invalid input"
+        res.redirect('/auth/register')
+        // next(error)
     }
 }
 

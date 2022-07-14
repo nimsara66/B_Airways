@@ -36,8 +36,8 @@ const registerStaff = async (req, res, next) => {
         } = req.body
 
         // check if employee exist
-        const [ employees, _ ] = await Staff.findByEmail(email)
-        if (employees.length>0) {
+        const [employees, _] = await Staff.findByEmail(email)
+        if (employees.length > 0) {
             throw new BadRequestError('Employee already exists')
         }
 
@@ -55,13 +55,17 @@ const registerStaff = async (req, res, next) => {
             state
         )
         await staff.create()
-        // TODO
-        res.send({ msg: 'success' })
+
+        // res.send({ msg: 'success' })
+        res.redirect('/staff/login')
     } catch (error) {
         if (error.isJoi) {
-            error = new BadRequestError('please provide valid values')
+            // error = new BadRequestError('please provide valid values')
+            res.redirect('/staff/register')
         }
-        next(error)
+        // next(error)
+        req.session.msg = "Invalid input"
+        res.redirect('/staff/register')
     }
 }
 

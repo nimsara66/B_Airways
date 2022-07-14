@@ -15,35 +15,38 @@
 
 
 
-    <div class="login-form-container active">
-        <div class="img-container">
-            <img src="/images/EU.jpg" id="video-slider"></img>
+        <div class="login-form-container active">
+            <div class="img-container">
+                <img src="/images/EU.jpg" id="video-slider"></img>
+            </div>
+
+            <i class="fas fa-times" id="form-close"></i>
+
+            <form action="/staff/register" method="post">
+                <h3>staff register</h3>
+                <input type="text" class="box" name="first_name" placeholder="First Name">
+                <input type="text" class="box" name="last_name" placeholder="Last Name">
+                <input type="text" class="box" name="gender" placeholder="Gender">
+                <input type="text" class="box" name="contact_number" placeholder="Contact Number">
+                <input type="text" class="box" name="country" placeholder="Country">
+                <input type="text" class="box" name="birthday" placeholder="Birthday">
+                <input type="text" class="box" name="category" placeholder="Category">
+                <input type="text" class="box" name="assigned_airport" placeholder="Assigned Airport">
+                <input type="text" class="box" name="state" placeholder="State">
+                <input type="text" class="box" name="email" placeholder="Email">
+                <input type="text" class="box" name="password" placeholder="Password">
+                <input type="text" class="box" name="confirm_password" placeholder="Confirm password">
+
+                <input type="submit" class="btn" value="Register">
+
+                <p>already have an account? <a href="/staff/login">log in</a></p>
+                <% if(msg) %>
+                    <p style="color: red;">
+                        <%-msg%>
+                    </p>
+            </form>
+
         </div>
-
-        <i class="fas fa-times" id="form-close"></i>
-
-        <form action="/staff/register" method="post">
-            <h3>staff register</h3>
-            <input type="text" class="box" name="first_name" placeholder="First Name">
-            <input type="text" class="box" name="last_name" placeholder="Last Name">
-            <input type="text" class="box" name="gender" placeholder="Gender">
-            <input type="text" class="box" name="contact_number" placeholder="Contact Number">
-            <input type="text" class="box" name="country" placeholder="Country">
-            <input type="text" class="box" name="birthday" placeholder="Birthday">
-            <input type="text" class="box" name="category" placeholder="Category">
-            <input type="text" class="box" name="assigned_airport" placeholder="Assigned Airport">
-            <input type="text" class="box" name="state" placeholder="State">
-            <input type="text" class="box" name="email" placeholder="Email">
-            <input type="text" class="box" name="password" placeholder="Password">
-            <input type="text" class="box" name="confirm_password" placeholder="Confirm password">            
-
-            <input type="submit" class="btn" value="Register">
-
-            <p>already have an account? <a href="/staff/login">log in</a></p>
-            <% if(msg)   %> <p><%-msg%></p>
-        </form>
-
-    </div>
 
 </body>
 
