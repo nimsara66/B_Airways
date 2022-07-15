@@ -62,16 +62,12 @@ const viewBook = async (req, res, next) => {
       ? parseInt(constants.FREQUENT_DISCOUNT)
       : 5
 
-    switch (frequency) {
-      case frequency > GOLD_MARGIN:
-        frequent_discount = constants.GOLD_DISCOUNT
-        frequent_type = 'gold'
-        break
-      case frequency > FREQUENT_MARGIN:
-        frequent_discount = constants.FREQUENT_DISCOUNT
-        frequent_type = 'frequent'
-      default:
-        break
+    if (frequency > GOLD_MARGIN) {
+      frequent_discount = constants.GOLD_DISCOUNT
+      frequent_type = 'gold'
+    } else if (frequency > FREQUENT_MARGIN) {
+      frequent_discount = constants.FREQUENT_DISCOUNT
+      frequent_type = 'frequent'
     }
 
     // get ticket price with discount part
