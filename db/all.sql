@@ -630,15 +630,45 @@ CALL insert_flight_schedule(31,4,'2022-04-08','20:00:00', 0);
 CALL insert_flight_schedule(64,4,'2022-04-09','09:30:00', 0);
 CALL insert_flight_schedule(15,4,'2022-04-10','21:00:00', 0);
 
-CALL insert_flight_schedule(02,5,'2022-07-03','08:00:00', 0);
-CALL insert_flight_schedule(19,5,'2022-07-03','23:00:00', 0);
-CALL insert_flight_schedule(02,5,'2022-07-04','22:30:00', 0);
-CALL insert_flight_schedule(19,5,'2022-07-05','20:00:00', 0);
-CALL insert_flight_schedule(02,5,'2022-07-06','22:30:00', 0);
-CALL insert_flight_schedule(19,5,'2022-07-07','20:00:00', 0);
-CALL insert_flight_schedule(02,5,'2022-07-08','22:30:00', 0);
-CALL insert_flight_schedule(19,5,'2022-07-09','20:00:00', 0);
-CALL insert_flight_schedule(02,5,'2022-07-10','22:30:00', 0);
-CALL insert_flight_schedule(19,5,'2022-07-11','20:00:00', 0);
+CALL insert_flight_schedule(34,5,'2022-07-03','07:15:00', 0);
+CALL insert_flight_schedule(27,5,'2022-07-03','19:00:00', 0);
+CALL insert_flight_schedule(34,5,'2022-07-04','09:00:00', 0);
+CALL insert_flight_schedule(31,5,'2022-07-05','03:00:00', 0);
+CALL insert_flight_schedule(61,5,'2022-07-06','16:30:00', 0);
+CALL insert_flight_schedule(34,5,'2022-07-07','09:00:00', 0);
+CALL insert_flight_schedule(31,5,'2022-07-08','03:00:00', 0);
+CALL insert_flight_schedule(61,5,'2022-07-09','16:30:00', 0);
+CALL insert_flight_schedule(34,5,'2022-07-10','09:00:00', 0);
+CALL insert_flight_schedule(31,5,'2022-07-11','03:00:00', 0);
+CALL insert_flight_schedule(61,5,'2022-07-12','16:30:00', 0);
+
+CALL insert_flight_schedule(17,6,'2022-07-03','07:10:00', 0);
+CALL insert_flight_schedule(57,6,'2022-07-03','15:00:00', 0);
+CALL insert_flight_schedule(17,6,'2022-07-04','03:30:00', 0);
+CALL insert_flight_schedule(57,6,'2022-07-04','15:00:00', 0);
+CALL insert_flight_schedule(17,6,'2022-07-05','03:30:00', 0);
+CALL insert_flight_schedule(57,6,'2022-07-05','15:00:00', 0);
+CALL insert_flight_schedule(17,6,'2022-07-06','03:30:00', 0);
+CALL insert_flight_schedule(57,6,'2022-07-06','15:00:00', 0);
+CALL insert_flight_schedule(17,6,'2022-07-07','03:30:00', 0);
+CALL insert_flight_schedule(57,6,'2022-07-07','15:00:00', 0);
+CALL insert_flight_schedule(17,6,'2022-07-08','03:30:00', 0);
+CALL insert_flight_schedule(57,6,'2022-07-08','15:00:00', 0);
+CALL insert_flight_schedule(17,6,'2022-07-09','03:30:00', 0);
+CALL insert_flight_schedule(57,6,'2022-07-09','15:00:00', 0);
+CALL insert_flight_schedule(17,6,'2022-07-10','03:30:00', 0);
+CALL insert_flight_schedule(57,6,'2022-07-10','15:00:00', 0);
+CALL insert_flight_schedule(17,6,'2022-07-11','03:30:00', 0);
+CALL insert_flight_schedule(57,6,'2022-07-11','15:00:00', 0);
+
+CALL insert_flight_schedule(11,7,'2022-07-03','07:15:00', 0);
+CALL insert_flight_schedule(09,7,'2022-07-03','20:00:00', 0);
+CALL insert_flight_schedule(11,7,'2022-07-04','07:30:00', 0);
+CALL insert_flight_schedule(09,7,'2022-07-04','20:00:00', 0);
+CALL insert_flight_schedule(11,7,'2022-07-08','09:30:00', 0);
+CALL insert_flight_schedule(09,7,'2022-07-08','21:00:00', 0);
+CALL insert_flight_schedule(11,7,'2022-07-12','07:30:00', 0);
+CALL insert_flight_schedule(09,7,'2022-07-12','20:00:00', 0);
+
 
 commit;	
