@@ -84,14 +84,11 @@ CREATE FUNCTION get_arrival(
     )
 RETURNS datetime
 BEGIN
-    --DECLARE val_duration time;
     DECLARE route_duration varchar(10);
     DECLARE val_arrival_datetime datetime;
     
   	SELECT duration INTO route_duration
   	FROM route WHERE route_id=val_route_id;
-  
-    --set val_duration = STR_TO_DATE(d,'%h%i%s');
 
   	set val_arrival_datetime = ADDTIME(val_departure_datetime, route_duration);
   	RETURN val_arrival_datetime;
