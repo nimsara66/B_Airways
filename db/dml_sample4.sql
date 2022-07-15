@@ -64,38 +64,6 @@ INSERT INTO Route VALUES
 (63,9, 7, '03:25'),
 (64,9, 10, '02:20');
 
-DROP FUNCTION IF EXISTS get_datetime;
-DELIMITER $$
-
-CREATE FUNCTION get_datetime(val_date DATE, val_time TIME)
-RETURNS datetime
-BEGIN
-	DECLARE val_datetime datetime;
-  	set val_datetime=concat(val_date,' ',val_time);
-END $$
-DELIMITER ;
-
-DROP FUNCTION IF EXISTS get_arrival;
-DELIMITER $$
-
-CREATE FUNCTION get_arrival(
-    val_route_id int(10),
-    val_departure_datetime datetime,
-    val_delay double
-    )
-RETURNS datetime
-BEGIN
-    DECLARE route_duration varchar(10);
-    DECLARE val_arrival_datetime datetime;
-    
-  	SELECT duration INTO route_duration
-  	FROM route WHERE route_id=val_route_id;
-
-  	set val_arrival_datetime = ADDDATE(ADDTIME(val_departure_datetime, route_duration), INTERVAL val_delay MINUTE);
-  	RETURN val_arrival_datetime;
-END $$
-DELIMITER ;
-
 
 DROP PROCEDURE IF EXISTS insert_route_price;
 DELIMITER $$
@@ -129,3 +97,85 @@ CALL insert_route_price(13,660,490,200);
 CALL insert_route_price(14,420,290,105);
 CALL insert_route_price(15,580,300,116);
 CALL insert_route_price(16,560,430,170);
+
+
+
+DROP FUNCTION IF EXISTS get_datetime;
+DELIMITER $$
+
+CREATE FUNCTION get_datetime(val_date DATE, val_time TIME)
+RETURNS datetime
+BEGIN
+	DECLARE val_datetime datetime;
+  	set val_datetime=concat(val_date,' ',val_time);
+END $$
+DELIMITER ;
+
+DROP FUNCTION IF EXISTS get_arrival;
+DELIMITER $$
+
+CREATE FUNCTION get_arrival(
+    val_route_id int(10),
+    val_departure_datetime datetime,
+    val_delay double
+    )
+RETURNS datetime
+BEGIN
+    DECLARE route_duration varchar(10);
+    DECLARE val_arrival_datetime datetime;
+    
+  	SELECT duration INTO route_duration
+  	FROM route WHERE route_id=val_route_id;
+
+  	set val_arrival_datetime = ADDDATE(ADDTIME(val_departure_datetime, route_duration), INTERVAL val_delay MINUTE);
+  	RETURN val_arrival_datetime;
+END $$
+DELIMITER ;
+
+
+
+DROP PROCEDURE IF EXISTS insert_flight_schedule;
+DELIMITER $$
+
+CREATE PROCEDURE insert_flight_schedule(
+    val_route_id int(10),
+    val_aircraft_id int(10),
+    val_departure_date date,
+    val_departure_time time,
+    val_flight_delay double
+	)
+BEGIN
+	DECLARE val_arrival_date date;
+    DECLARE val_arrival_time time;
+    DECLARE val_arrival datetime;
+
+END $$
+DELIMITER ;
+
+CALL insert_flight_schedule(1,1,'2022-07-03','07:00:00', 0);
+CALL insert_flight_schedule(53,1,'2022-07-03','21:00:00', 0);
+CALL insert_flight_schedule(1,1,'2022-07-04','07:00:00', 0);
+CALL insert_flight_schedule(57,1,'2022-07-04','20:00:00', 0);
+CALL insert_flight_schedule(10,1,'2022-07-05','09:00:00', 0);
+CALL insert_flight_schedule(1,1,'2022-07-06','07:00:00', 0);
+CALL insert_flight_schedule(57,1,'2022-07-06','20:00:00', 0);
+CALL insert_flight_schedule(10,1,'2022-07-07','09:00:00', 0);
+CALL insert_flight_schedule(1,1,'2022-07-08','07:00:00', 0);
+CALL insert_flight_schedule(57,1,'2022-07-08','20:00:00', 0);
+CALL insert_flight_schedule(1,1,'2022-07-09','09:00:00', 0);
+
+
+CALL insert_flight_schedule(47,2,'2022-07-03','08:00:00', 0);
+CALL insert_flight_schedule(02,2,'2022-07-03','20:00:00', 0);
+CALL insert_flight_schedule(47,2,'2022-07-04','07:30:00', 0);
+CALL insert_flight_schedule(07,2,'2022-07-04','20:00:00', 0);
+CALL insert_flight_schedule(23,2,'2022-07-05','09:30:00', 0);
+CALL insert_flight_schedule(50,2,'2022-07-05','21:00:00', 0);
+CALL insert_flight_schedule(17,2,'2022-07-02','10:00:00', 0);
+CALL insert_flight_schedule(52,2,'2022-07-02','21:00:00', 0);
+CALL insert_flight_schedule(47,2,'2022-07-07','10:30:00', 0);
+CALL insert_flight_schedule(07,2,'2022-07-07','20:00:00', 0);
+CALL insert_flight_schedule(23,2,'2022-07-08','09:30:00', 0);
+CALL insert_flight_schedule(50,2,'2022-07-08','21:00:00', 0);
+CALL insert_flight_schedule(17,2,'2022-07-09','07:00:00', 0);
+CALL insert_flight_schedule(52,2,'2022-07-09','21:00:00', 0);
