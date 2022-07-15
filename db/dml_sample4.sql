@@ -149,6 +149,19 @@ BEGIN
     DECLARE val_arrival_time time;
     DECLARE val_arrival datetime;
 
+    SET val_arrival = get_arrival(
+        val_route_id, 
+        get_datetime(val_departure_date, val_departure_time), 
+		val_flight_delay);
+
+    SET val_arrival_date = CAST(val_arrival AS DATE);
+    SET val_arrival_time = CAST(val_arrival AS TIME);
+
+    INSERT INTO Flight_Schedule 
+    (route_id, aircraft_id, departure_date, departure_time, arrival_date,arrival_time, flight_delay) 
+    VALUES
+    (val_route_id, val_aircraft_id, val_departure_date, val_departure_time, val_arrival_date,val_arrival_time, val_flight_delay);
+    
 END $$
 DELIMITER ;
 
@@ -179,3 +192,43 @@ CALL insert_flight_schedule(23,2,'2022-07-08','09:30:00', 0);
 CALL insert_flight_schedule(50,2,'2022-07-08','21:00:00', 0);
 CALL insert_flight_schedule(17,2,'2022-07-09','07:00:00', 0);
 CALL insert_flight_schedule(52,2,'2022-07-09','21:00:00', 0);
+
+
+CALL insert_flight_schedule(02,3,'2022-07-03','03:00:00', 0);
+CALL insert_flight_schedule(19,3,'2022-07-03','23:00:00', 0);
+CALL insert_flight_schedule(02,3,'2022-07-04','22:30:00', 0);
+CALL insert_flight_schedule(19,3,'2022-07-05','20:00:00', 0);
+CALL insert_flight_schedule(02,3,'2022-07-06','22:30:00', 0);
+CALL insert_flight_schedule(19,3,'2022-07-07','20:00:00', 0);
+CALL insert_flight_schedule(02,3,'2022-07-03','22:30:00', 0);
+CALL insert_flight_schedule(19,3,'2022-07-09','20:00:00', 0);
+CALL insert_flight_schedule(02,3,'2022-07-10','22:30:00', 0);
+CALL insert_flight_schedule(19,3,'2022-07-11','20:00:00', 0);
+
+
+CALL insert_flight_schedule(40,4,'2022-04-03','08:00:00', 0);
+CALL insert_flight_schedule(28,4,'2022-04-03','20:00:00', 0);
+CALL insert_flight_schedule(40,4,'2022-04-04','04:30:00', 0);
+CALL insert_flight_schedule(31,4,'2022-04-04','20:00:00', 0);
+CALL insert_flight_schedule(64,4,'2022-04-05','09:30:00', 0);
+CALL insert_flight_schedule(15,4,'2022-04-05','21:00:00', 0);
+CALL insert_flight_schedule(40,4,'2022-04-06','04:30:00', 0);
+CALL insert_flight_schedule(31,4,'2022-04-06','20:00:00', 0);
+CALL insert_flight_schedule(64,4,'2022-04-04','09:30:00', 0);
+CALL insert_flight_schedule(15,4,'2022-04-04','21:00:00', 0);
+CALL insert_flight_schedule(40,4,'2022-04-08','04:30:00', 0);
+CALL insert_flight_schedule(31,4,'2022-04-08','20:00:00', 0);
+CALL insert_flight_schedule(64,4,'2022-04-09','09:30:00', 0);
+CALL insert_flight_schedule(15,4,'2022-04-10','21:00:00', 0);
+
+
+CALL insert_flight_schedule(02,5,'2022-07-03','08:00:00', 0);
+CALL insert_flight_schedule(19,5,'2022-07-03','23:00:00', 0);
+CALL insert_flight_schedule(02,5,'2022-07-04','22:30:00', 0);
+CALL insert_flight_schedule(19,5,'2022-07-05','20:00:00', 0);
+CALL insert_flight_schedule(02,5,'2022-07-06','22:30:00', 0);
+CALL insert_flight_schedule(19,5,'2022-07-07','20:00:00', 0);
+CALL insert_flight_schedule(02,5,'2022-07-08','22:30:00', 0);
+CALL insert_flight_schedule(19,5,'2022-07-09','20:00:00', 0);
+CALL insert_flight_schedule(02,5,'2022-07-10','22:30:00', 0);
+CALL insert_flight_schedule(19,5,'2022-07-11','20:00:00', 0);
