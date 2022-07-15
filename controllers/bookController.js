@@ -121,12 +121,12 @@ const bookTickets = async (req, res, next) => {
   }
   let customer_id = req.user.customer_id
   try {
-    let booking_id = await SeatBooking.findBookingIdfromScheduleIdAndSeatId(
+    let isBookingSuccess = await SeatBooking.book(
       schedule_id,
-      selected_seat
+      selected_seat,
+      customer_id
     )
-    let seatbooking = new SeatBooking(booking_id)
-    let isBookingSuccess = await seatbooking.book(customer_id)
+    console.log(isBookingSuccess)
     if (isBookingSuccess) req.session.msg = 'Seat booked successfully.'
     else req.session.msg = 'Seat was already booked.'
     return res.redirect(`/book/${schedule_id}`)
