@@ -1,3 +1,11 @@
+CREATE USER 'b_airways_server'@'localhost' IDENTIFIED BY '123456';
+GRANT SELECT on B_Airways.* TO 'b_airways_server'@'localhost';
+GRANT UPDATE, INSERT on B_Airways.Customer TO 'b_airways_server'@'localhost';
+GRANT UPDATE, INSERT on B_Airways.Registered_Customer TO 'b_airways_server'@'localhost';
+GRANT UPDATE, INSERT on B_Airways.Seat_Booking TO 'b_airways_server'@'localhost';
+GRANT UPDATE, INSERT on B_Airways.Guest_Customer TO 'b_airways_server'@'localhost';
+FLUSH PRIVILEGES;
+
 create table Traveller_Class(
     traveller_class_id      int(10) primary key,
     traveller_class_name    varchar(15) not null
