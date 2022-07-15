@@ -94,3 +94,20 @@ BEGIN
   	RETURN val_arrival_datetime;
 END $$
 DELIMITER ;
+
+
+DROP PROCEDURE IF EXISTS insert_route_price;
+DELIMITER $$
+
+CREATE PROCEDURE insert_route_price(
+    route_id int,
+    pat_price numeric,
+    bus_price numeric,
+    econ_price numeric)
+BEGIN
+	INSERT INTO seat_price VALUES (route_id,1,pat_price);
+	INSERT INTO seat_price VALUES (route_id,2,bus_price);
+	INSERT INTO seat_price VALUES (route_id,3,econ_price);
+
+END $$
+DELIMITER ;
