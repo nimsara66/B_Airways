@@ -195,6 +195,19 @@ create table Seat_Price(
     
 );
 
+/* Constant required to calculate Frequent User discounts */
+create table RegUserDisConstants(
+    id      varchar(100) primary key,
+    value   varchar(100)
+);
+
+insert into RegUserDisConstants values
+('INTERVAL', '30'),
+('GOLD_MARGIN', '5'),
+('FREQUENT_MARGIN', '3'),
+('GOLD_DISCOUNT', '9'),
+('FREQUENT_DISCOUNT', '5');
+
 DROP PROCEDURE IF EXISTS addAircraftSeats;
 
 DELIMITER $$
