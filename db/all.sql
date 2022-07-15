@@ -4,6 +4,7 @@ GRANT UPDATE, INSERT on B_Airways.Customer TO 'b_airways_server'@'localhost';
 GRANT UPDATE, INSERT on B_Airways.Registered_Customer TO 'b_airways_server'@'localhost';
 GRANT UPDATE, INSERT on B_Airways.Seat_Booking TO 'b_airways_server'@'localhost';
 GRANT UPDATE, INSERT on B_Airways.Guest_Customer TO 'b_airways_server'@'localhost';
+GRANT UPDATE, INSERT on B_Airways.Flight_Schedule TO 'b_airways_server'@'localhost';
 FLUSH PRIVILEGES;
 
 create table Traveller_Class(
