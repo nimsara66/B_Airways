@@ -307,9 +307,9 @@ CREATE PROCEDURE insert_route_price(
     bus_price numeric,
     econ_price numeric)
 BEGIN
-	INSERT INTO seat_price VALUES (route_id,1,pat_price);
-	INSERT INTO seat_price VALUES (route_id,2,bus_price);
-	INSERT INTO seat_price VALUES (route_id,3,econ_price);
+	INSERT INTO Seat_Price VALUES (route_id,1,pat_price);
+	INSERT INTO Seat_Price VALUES (route_id,2,bus_price);
+	INSERT INTO Seat_Price VALUES (route_id,3,econ_price);
 
 END $$
 DELIMITER ;
@@ -340,7 +340,7 @@ BEGIN
     DECLARE val_arrival_datetime datetime;
     
   	SELECT duration INTO route_duration
-  	FROM route WHERE route_id=val_route_id;
+  	FROM Route WHERE route_id=val_route_id;
 
   	set val_arrival_datetime = ADDDATE(ADDTIME(val_departure_datetime, route_duration), INTERVAL val_delay MINUTE);
   	RETURN val_arrival_datetime;
