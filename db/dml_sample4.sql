@@ -111,3 +111,20 @@ BEGIN
 
 END $$
 DELIMITER ;
+
+CALL insert_route_price(1, 800, 500, 300);
+CALL insert_route_price(2,610,510,147);
+CALL insert_route_price(3, 750,670,166);
+CALL insert_route_price(4,620,410,180);
+CALL insert_route_price(5,730,520,200);
+CALL insert_route_price(6,512,370,128);
+CALL insert_route_price(7,430,290,90);
+CALL insert_route_price(8,680,420,150);
+CALL insert_route_price(9,1000, 500, 300);
+CALL insert_route_price(10,660,490,200);
+CALL insert_route_price(11,560,430,170);
+CALL insert_route_price(12,390,220,83);
+CALL insert_route_price(13,660,490,200);
+CALL insert_route_price(14,420,290,105);
+CALL insert_route_price(15,580,300,116);
+CALL insert_route_price(16,560,430,170);
