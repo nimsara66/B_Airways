@@ -80,7 +80,8 @@ DELIMITER $$
 
 CREATE FUNCTION get_arrival(
     val_route_id int(10),
-    val_departure_datetime datetime
+    val_departure_datetime datetime,
+    val_delay double
     )
 RETURNS datetime
 BEGIN
@@ -90,7 +91,7 @@ BEGIN
   	SELECT duration INTO route_duration
   	FROM route WHERE route_id=val_route_id;
 
-  	set val_arrival_datetime = ADDTIME(val_departure_datetime, route_duration);
+  	set val_arrival_datetime = ADDDATE(ADDTIME(val_departure_datetime, route_duration), INTERVAL val_delay MINUTE);
   	RETURN val_arrival_datetime;
 END $$
 DELIMITER ;
