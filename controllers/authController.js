@@ -7,22 +7,6 @@ const registerCustomer = async (req, res, next) => {
   try {
     // validate
 
-    // const {
-    //     email,
-    //     password,
-    //     first_name,
-    //     last_name,
-    //     gender,
-    //     contact_number,
-    //     passport_number,
-    //     address_line1,
-    //     address_line2,
-    //     country,
-    //     province,
-    //     city,
-    //     birthday
-    // } = await RegisteredCustomerSchema.validateAsync(req.body)
-
     const {
       email,
       password,
@@ -36,9 +20,25 @@ const registerCustomer = async (req, res, next) => {
       country,
       province,
       city,
-      birthday,
-    } = req.body
-    //await RegisteredCustomerSchema.validateAsync(req.body)
+      birthday
+    } = await RegisteredCustomerSchema.validateAsync(req.body)
+
+    // const {
+    //   email,
+    //   password,
+    //   first_name,
+    //   last_name,
+    //   gender,
+    //   contact_number,
+    //   passport_number,
+    //   address_line1,
+    //   address_line2,
+    //   country,
+    //   province,
+    //   city,
+    //   birthday,
+    // } = req.body
+
 
     // check if user exist
     const [customers, _] = await RegisteredCustomer.findByEmail(email)
@@ -69,11 +69,14 @@ const registerCustomer = async (req, res, next) => {
   } catch (error) {
     if (error.isJoi) {
       // error = new BadRequestError('please provide valid values')
-      res.redirect('/auth/register', { message: 'Invalid Credentials' })
-    }
-    req.session.msg = 'Invalid input'
-    res.redirect('/auth/register')
-    // next(error)
+      req.session.msg = 'Invalid input'
+      res.redirect('/auth/register')
+      return
+
+    } else { }
+    // req.session.msg = 'Invalid input'
+    // res.redirect('/auth/register')
+    next(error)
   }
 }
 

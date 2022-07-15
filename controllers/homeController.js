@@ -29,7 +29,7 @@ const registerGuest = async (req, res, next) => {
             req.body.address_line2,
             req.body.birthday
         )
-        
+
         await guestCustomer.create()
         req.session.schedule_id = req.body.schedule_id
         req.body = {
@@ -39,7 +39,9 @@ const registerGuest = async (req, res, next) => {
         next()
     } catch (error) {
         if (error.isJoi) {
-            error = new BadRequestError('please provide valid values')
+            req.session.msg = 'Invalid input'
+            res.redirect('/auth/register')
+            return
         }
         next(error)
     }
@@ -50,13 +52,13 @@ const logout = (req, res, next) => {
     res.redirect('/');
 }
 
-const loginSuccess = (req,res,next) => {
+const loginSuccess = (req, res, next) => {
     let schedule_id = req.session.schedule_id;
     delete schedule_id;
     res.redirect(`/book/${schedule_id}`);
 }
 
-module.exports = { 
+module.exports = {
     registerGuest,
     logout,
     loginSuccess

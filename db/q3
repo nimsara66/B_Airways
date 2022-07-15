@@ -1,0 +1,27 @@
+DROP PROCEDURE IF EXISTS getTypeCount;
+
+DELIMITER $$
+
+CREATE PROCEDURE getTypeCount(start_date DATE, end_date 
+DATE) 
+BEGIN 
+	-- get passenger count to a destination
+	SELECT
+	    count(booking_id),
+	    customer_type
+	FROM `seat_booking`
+	    JOIN registered_customer USING(customer_id)
+	    JOIN customer USING(customer_id)
+	where
+	    customer_id is NOT null
+	    and bookin
+booking_date<end_date and booking_date>start_date GROUP 
+by customer_type; 
+
+END $$ 
+
+DELIMITER ;
+
+-- call the function
+
+call getTypeCount('2022-07-09','2022-06-01');
