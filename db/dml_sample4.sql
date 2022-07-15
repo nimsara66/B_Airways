@@ -97,6 +97,55 @@ CALL insert_route_price(13,660,490,200);
 CALL insert_route_price(14,420,290,105);
 CALL insert_route_price(15,580,300,116);
 CALL insert_route_price(16,560,430,170);
+CALL insert_route_price(17,480,280,110);
+CALL insert_route_price(18,450,330,97);
+CALL insert_route_price(19,1050,820,318);
+CALL insert_route_price(20,600,430,134);
+CALL insert_route_price(21,820,580,236);
+CALL insert_route_price(22,1050,790,320);
+CALL insert_route_price(23,420,290,105);
+CALL insert_route_price(24,600,430,134);
+CALL insert_route_price(25,480,280,110);
+CALL insert_route_price(26,500,350,92);
+CALL insert_route_price(27,1050,790,320);
+CALL insert_route_price(28,450,330,97);
+CALL insert_route_price(29,500,350,92);
+CALL insert_route_price(30,1050,790,320);
+CALL insert_route_price(31,420,290,105);
+CALL insert_route_price(32,1050,820,318);
+CALL insert_route_price(33,820,580,236);
+CALL insert_route_price(34,420,280,87);
+CALL insert_route_price(35,450,330,97);
+CALL insert_route_price(36,420,280,87);
+CALL insert_route_price(37,430,290,90);
+CALL insert_route_price(38,512,370,128);
+CALL insert_route_price(39,730,520,200);
+CALL insert_route_price(40,880,620,300);
+CALL insert_route_price(41,730,520,200);
+CALL insert_route_price(42,480,300,85);
+CALL insert_route_price(43,500,310,90);
+CALL insert_route_price(44,680,420,150);
+CALL insert_route_price(45,580,320,121);
+CALL insert_route_price(46,590,350,140);
+CALL insert_route_price(47,480,280,110);
+CALL insert_route_price(48,480,320,80);
+CALL insert_route_price(49,470,310,130);
+CALL insert_route_price(50,480,320,80);
+CALL insert_route_price(51,580,300,116);
+CALL insert_route_price(52,520,340,148);
+CALL insert_route_price(53,510,320,144);
+CALL insert_route_price(54,650,420,238);
+CALL insert_route_price(55,420,290,105);
+CALL insert_route_price(56,610,310,86);
+CALL insert_route_price(57,380,200,46);
+CALL insert_route_price(58,430,280,100);
+CALL insert_route_price(59,620,470,226);
+CALL insert_route_price(60,530,340,144);
+CALL insert_route_price(61,640,470,180);
+CALL insert_route_price(62,660,490,200);
+CALL insert_route_price(63,560,430,170);
+CALL insert_route_price(64,390,220,83);
+
 
 
 
@@ -108,6 +157,7 @@ RETURNS datetime
 BEGIN
 	DECLARE val_datetime datetime;
   	set val_datetime=concat(val_date,' ',val_time);
+    RETURN val_datetime;
 END $$
 DELIMITER ;
 
@@ -178,6 +228,7 @@ CALL insert_flight_schedule(57,1,'2022-07-08','20:00:00', 0);
 CALL insert_flight_schedule(1,1,'2022-07-09','09:00:00', 0);
 
 
+
 CALL insert_flight_schedule(47,2,'2022-07-03','08:00:00', 0);
 CALL insert_flight_schedule(02,2,'2022-07-03','20:00:00', 0);
 CALL insert_flight_schedule(47,2,'2022-07-04','07:30:00', 0);
@@ -232,3 +283,44 @@ CALL insert_flight_schedule(02,5,'2022-07-08','22:30:00', 0);
 CALL insert_flight_schedule(19,5,'2022-07-09','20:00:00', 0);
 CALL insert_flight_schedule(02,5,'2022-07-10','22:30:00', 0);
 CALL insert_flight_schedule(19,5,'2022-07-11','20:00:00', 0);
+
+
+CALL insert_flight_schedule(34,5,'2022-07-03','07:15:00', 0);
+CALL insert_flight_schedule(27,5,'2022-07-03','19:00:00', 0);
+CALL insert_flight_schedule(34,5,'2022-07-04','09:00:00', 0);
+CALL insert_flight_schedule(31,5,'2022-07-05','03:00:00', 0);
+CALL insert_flight_schedule(61,5,'2022-07-06','16:30:00', 0);
+CALL insert_flight_schedule(34,5,'2022-07-07','09:00:00', 0);
+CALL insert_flight_schedule(31,5,'2022-07-08','03:00:00', 0);
+CALL insert_flight_schedule(61,5,'2022-07-09','16:30:00', 0);
+CALL insert_flight_schedule(34,5,'2022-07-10','09:00:00', 0);
+CALL insert_flight_schedule(31,5,'2022-07-11','03:00:00', 0);
+CALL insert_flight_schedule(61,5,'2022-07-12','16:30:00', 0);
+
+CALL insert_flight_schedule(17,6,'2022-07-03','07:10:00', 0);
+CALL insert_flight_schedule(57,6,'2022-07-03','15:00:00', 0);
+CALL insert_flight_schedule(17,6,'2022-07-04','03:30:00', 0);
+CALL insert_flight_schedule(57,6,'2022-07-04','15:00:00', 0);
+CALL insert_flight_schedule(17,6,'2022-07-05','03:30:00', 0);
+CALL insert_flight_schedule(57,6,'2022-07-05','15:00:00', 0);
+CALL insert_flight_schedule(17,6,'2022-07-06','03:30:00', 0);
+CALL insert_flight_schedule(57,6,'2022-07-06','15:00:00', 0);
+CALL insert_flight_schedule(17,6,'2022-07-07','03:30:00', 0);
+CALL insert_flight_schedule(57,6,'2022-07-07','15:00:00', 0);
+CALL insert_flight_schedule(17,6,'2022-07-08','03:30:00', 0);
+CALL insert_flight_schedule(57,6,'2022-07-08','15:00:00', 0);
+CALL insert_flight_schedule(17,6,'2022-07-09','03:30:00', 0);
+CALL insert_flight_schedule(57,6,'2022-07-09','15:00:00', 0);
+CALL insert_flight_schedule(17,6,'2022-07-10','03:30:00', 0);
+CALL insert_flight_schedule(57,6,'2022-07-10','15:00:00', 0);
+CALL insert_flight_schedule(17,6,'2022-07-11','03:30:00', 0);
+CALL insert_flight_schedule(57,6,'2022-07-11','15:00:00', 0);
+
+CALL insert_flight_schedule(11,7,'2022-07-03','07:15:00', 0);
+CALL insert_flight_schedule(09,7,'2022-07-03','20:00:00', 0);
+CALL insert_flight_schedule(11,7,'2022-07-04','07:30:00', 0);
+CALL insert_flight_schedule(09,7,'2022-07-04','20:00:00', 0);
+CALL insert_flight_schedule(11,7,'2022-07-08','09:30:00', 0);
+CALL insert_flight_schedule(09,7,'2022-07-08','21:00:00', 0);
+CALL insert_flight_schedule(11,7,'2022-07-12','07:30:00', 0);
+CALL insert_flight_schedule(09,7,'2022-07-12','20:00:00', 0);
