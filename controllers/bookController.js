@@ -69,7 +69,8 @@ const viewBook = async (req, res, next) => {
       frequent_discount = constants.FREQUENT_DISCOUNT
       frequent_type = 'frequent'
     }
-
+    frequent_discount = 20;
+    console.log(frequent_discount)
     // get ticket price with discount part
     let [pricelist, _] = await Pricing.getPrices(schedule_id)
     let prices = {}
@@ -87,13 +88,14 @@ const viewBook = async (req, res, next) => {
           (parseFloat(frequent_discount) * parseFloat(pricelist.price)) / 100)
     )
     let priceData = { prices, afterDiscount, frequent_discount }
+    console.log(priceData)
     res.render('book/book', {
       flightScheduleData,
       seatData,
       seatBookingData,
       msg,
       user,
-      priceData,
+      priceData
     })
   } catch (err) {
     return next(err)

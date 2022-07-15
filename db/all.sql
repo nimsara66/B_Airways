@@ -1,12 +1,4 @@
 CREATE USER 'b_airways_server'@'localhost' IDENTIFIED BY '123456';
--- GRANT SELECT on B_Airways.* TO 'b_airways_server'@'localhost';
--- GRANT UPDATE, INSERT on B_Airways.Customer TO 'b_airways_server'@'localhost';
--- GRANT UPDATE, INSERT on B_Airways.Registered_Customer TO 'b_airways_server'@'localhost';
--- GRANT UPDATE, INSERT on B_Airways.Seat_Booking TO 'b_airways_server'@'localhost';
--- GRANT UPDATE, INSERT on B_Airways.Guest_Customer TO 'b_airways_server'@'localhost';
--- GRANT UPDATE, INSERT on B_Airways.Flight_Schedule TO 'b_airways_server'@'localhost';
--- GRANT ALL on B_Airways.sessions TO 'b_airways_server'@'localhost';
--- FLUSH PRIVILEGES;
 
 create table Traveller_Class(
     traveller_class_id      int(10) primary key,
@@ -319,6 +311,25 @@ CREATE TRIGGER ScheduleInsertTrigger AFTER INSERT ON Flight_Schedule
 	BEGIN
 		CALL AddSeatBooking(new.schedule_id);
 	END$$
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS SeatBook;
+DELIMITER $$
+CREATE PROCEDURE SeatBook(in schedule_id_in int, in seat_id_in int, in customer_id_in int, out bookingSuccess int)
+BEGIN
+   DECLARE booking_id_in int;
+   SET bookingSuccess = -1;
+   START TRANSACTION;
+    	SELECT booking_id into booking_id_in from Seat_Booking where schedule_id=schedule_id_in and seat_id=seat_id_in LIMIT 1;
+        UPDATE Seat_Booking SET customer_id=customer_id_in, booking_date=CURDATE(), state='occupied' WHERE booking_id=booking_id_in and state='available';
+        IF (ROW_COUNT()>0) THEN
+        	SET bookingSuccess = 1;
+        ELSE
+        	SET bookingSuccess = 0;
+        END IF;
+    COMMIT;
+    SELECT @bookingSuccess;
+END$$
 DELIMITER ;
 
 DROP PROCEDURE IF EXISTS insert_route_price;
