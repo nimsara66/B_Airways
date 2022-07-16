@@ -61,6 +61,7 @@ const registerStaff = async (req, res, next) => {
   } catch (error) {
     if (error.isJoi) {
       // error = new BadRequestError('please provide valid values')
+      req.session.msg = 'Invalid input'
       res.redirect('/staff/register')
       return
     }
