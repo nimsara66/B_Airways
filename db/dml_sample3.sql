@@ -46,30 +46,12 @@ insert into Airport VALUES
 (9,'DMK', 18),
 (10,'SIN', 19);
 
-
-insert into Route VALUES
-(1,1,2,'2'),
-(2,8,4,'3'),
-(3,9,6,'2'),
-(4,3,7,'4'),
-(5,6,10,'1');
-
-
 INSERT INTO Discount VALUES
 ('registered_customer', 5),
 ('guest_customer', 0);
 
 INSERT INTO Customer VALUES
 (1, 'registered_customer');
-
-
-INSERT INTO Seat_Price VALUES
-(1,1,500),
-(1,2,600),
-(1,3,700),
-(2,1,400),
-(2,2,500),
-(2,3,600);
 
 INSERT INTO Aircraft VALUES
 (1,1,1,'active'),
