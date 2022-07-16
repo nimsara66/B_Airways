@@ -2,7 +2,7 @@
     Assumptions
         Customer age in years is determined only considering current year and birth year.
         Next immediate flight means flight that has departure date and time after and closest
-            to current date and time 
+            to current date and time with the given flight_id
 */
 
 DROP FUNCTION IF EXISTS GetCustomerType;
@@ -104,5 +104,7 @@ CALL SeatBook(87,11,13,@isBookingSuccess);
 CALL SeatBook(87,12,14,@isBookingSuccess);
 CALL SeatBook(87,13,15,@isBookingSuccess);
 CALL SeatBook(87,14,16,@isBookingSuccess);
-CALL SeatBook(87,15,7,@isBookingSuccess);
+CALL SeatBook(87,15,17,@isBookingSuccess);
+
+SELECT * FROM Seat_Booking WHERE schedule_id=87;
 

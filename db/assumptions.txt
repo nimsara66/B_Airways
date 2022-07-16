@@ -1,0 +1,10 @@
+For one scheduled tour, only one seat is booked for one passport/one customer.
+	You cannot book seats for others when loggin into your account. 
+	If you want to book seats for someone else, log out and fill their details and book.
+	
+"Seat booking created" in the question denotes the booking of the seat. In this implementation it is changing the
+	seat booking state to occupiend. (Inseting seat booking happened when creating the schedule.)
+	This approach is selected because one sql is executing when customer is selectcting seats. If seat booking is
+		set to create when selecting seats, there will be at least two sqls. Therefore, this is much more
+		customer satisfactory. It is true there is a delay at staff when cretaing a schedule, but it is better than 
+		delaying the customer.
